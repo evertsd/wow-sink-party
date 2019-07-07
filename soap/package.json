@@ -2,18 +2,28 @@
   "name": "sink-party-soap",
   "version": "0.0.1",
   "description": "Soap helps the water clean our utensils for the next use",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "tsc && node dist/battle-net/request/base.js"
+    "build": "tsc",
+    "test": "node dist/battle-net/scripts/regionsList.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^12.0.12",
+    "@types/request-promise": "^4.1.44",
     "ts-import-plugin": "^1.6.1",
     "ts-loader": "^6.0.4",
     "tslint": "^5.18.0",
     "tslint-loader": "^3.5.4",
     "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "module-alias": "^2.2.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "_moduleAliases": {
+    "~": "dist"
   }
 }

@@ -1,4 +1,4 @@
-import credentials from '../../secrets/credentials.json';
+import * as credentials from './secrets/credentials.json';
 
 export interface IBattleNetCredentials {
   CLIENT_ID: string;
@@ -27,11 +27,6 @@ export interface ICredentials {
 
 const DEFAULT_CREDENTIAL_KEY = 'dev';
 
-export const getCredentials = (): ICredential => {
-  const key: string = process.env.NODE_ENV || DEFAULT_CREDENTIAL_KEY;
-
-  return (
-    (credentials as ICredentials)[key] ||
-    credentials[DEFAULT_CREDENTIAL_KEY]
-  );
-};
+export const getCredentials = (key: string = DEFAULT_CREDENTIAL_KEY): ICredential =>
+  (credentials as ICredentials)[key] ||
+  credentials[DEFAULT_CREDENTIAL_KEY];

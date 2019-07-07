@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "module": "esnext",
-    "target": "es6",
+    "module": "commonjs",
+    "target": "es5",
     "lib": ["dom", "es2015"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
     "rootDirs": ["src"],
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "paths": {
       "~/*": ["./*"]
     },
@@ -24,7 +24,7 @@
     "strictNullChecks": true
   },
   "include": [
-    "./src/**/*"
+    "src"
   ],
   "exclude": [
     "node_modules"
