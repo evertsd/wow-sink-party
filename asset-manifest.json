@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/wow-party/static/css/main.755b01fd.chunk.css",
+    "main.js": "/wow-party/static/js/main.7cb7d8ba.chunk.js",
+    "main.js.map": "/wow-party/static/js/main.7cb7d8ba.chunk.js.map",
+    "runtime~main.js": "/wow-party/static/js/runtime~main.cb5c69e3.js",
+    "runtime~main.js.map": "/wow-party/static/js/runtime~main.cb5c69e3.js.map",
+    "static/js/2.752f5bd8.chunk.js": "/wow-party/static/js/2.752f5bd8.chunk.js",
+    "static/js/2.752f5bd8.chunk.js.map": "/wow-party/static/js/2.752f5bd8.chunk.js.map",
+    "index.html": "/wow-party/index.html",
+    "precache-manifest.b7fb09ce9511d6d4e3f0a029dc6038e8.js": "/wow-party/precache-manifest.b7fb09ce9511d6d4e3f0a029dc6038e8.js",
+    "service-worker.js": "/wow-party/service-worker.js",
+    "static/css/main.755b01fd.chunk.css.map": "/wow-party/static/css/main.755b01fd.chunk.css.map"
+  }
+}
