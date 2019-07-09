@@ -1,3 +1,4 @@
+import './secrets/bundle'; // import to include in bundle
 import * as credentials from './secrets/credentials.json';
 
 export interface IBattleNetCredentials {

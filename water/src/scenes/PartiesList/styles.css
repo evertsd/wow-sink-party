@@ -1,0 +1,39 @@
+.parties-list {
+  background: #404040;
+  height: 100vh;
+}
+
+.parties-list h2 {
+  color: #ABABAB;
+  margin: 0;
+  padding: 1rem;
+}
+
+.parties-list ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.parties-list .party-member {
+  border-top: 2px solid #A0A0A0;
+  padding: 0;
+}
+
+.parties-list .party-member:last-of-type {
+  border-bottom: 2px solid #A0A0A0;
+}
+
+.party-member div {
+  display: inline-block;
+}
+
+.party-member .party-member-level {
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-right: 1px solid #A0A0A0;
+}
+
+.party-member .party-member-name {
+  padding-left: 1rem;
+}

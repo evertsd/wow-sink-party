@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "node dist/battle-net/scripts/regionsList.js"
+    "party-sync": "node dist/scripts/getPartyMemberDetails.js",
+    "create-env": "node dist/scripts/createCredentialEnvVars.js ../water/.env"
   },
   "author": "",
   "license": "ISC",
