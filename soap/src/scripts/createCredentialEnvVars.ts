@@ -1,11 +1,8 @@
 import 'module-alias/register';
 import * as fs from 'fs';
-import * as path from 'path';
 import { getCredentials } from '~/credentials';
 
 const PATH_TO_ENV = process.argv[2];
-
-console.info('path.resolve(PATH_TO_ENV)', PATH_TO_ENV, path.resolve(PATH_TO_ENV));
 
 const getCredentialEnvs = (credentials: any, parent: string) =>
   Object

@@ -3,11 +3,11 @@ import { Database } from '../database';
 
 export * from './schema';
 
-export const set = async (id: number, character: Attributes) => {
+export const set = async (id: string, character: Attributes) => {
   const payload = save(character);
 
   try {
-    await Database.characters.doc(`${id}`).set(payload);
+    await Database.characters.doc(id).set(payload);
   } catch (e) {
     console.log(`Character.set, error: ${e}`);
   }

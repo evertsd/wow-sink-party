@@ -3,13 +3,15 @@
     "61472496-4028-4fe3-ad91-4307ca1e0bbe": {
       "name": "Anderson & Co.",
       "members": [
-        { "realm": "hyjal", "name": "thesauce" },
-        { "realm": "hyjal", "name": "naifu" },
-        { "realm": "hyjal", "name": "haijaru" },
-        { "realm": "hyjal", "name": "cello" },
-        { "realm": "hyjal", "name": "lockface" }
+        "thesauce:hyjal:us",
+        "naifu:hyjal:us",
+        "haijaru:hyjal:us",
+        "cello:hyjal:us",
+        "lockface:hyjal:us",
+        "kimosobi:area-52:us"
       ],
-      "region": "us"
+      "region": "us",
+      "realm": "hyjal"
     }
   }
 }
