@@ -6,7 +6,7 @@
 .parties-list h2 {
   color: #ABABAB;
   margin: 0;
-  padding: 1rem;
+  padding: 1rem 2rem;
 }
 
 .parties-list ul {
@@ -29,9 +29,11 @@
 }
 
 .party-member .party-member-level {
+  border-right: 1px solid #A0A0A0;
   font-size: 1.2rem;
   padding: 1rem;
-  border-right: 1px solid #A0A0A0;
+  text-align: center;
+  width: 3rem;
 }
 
 .party-member .party-member-name {
