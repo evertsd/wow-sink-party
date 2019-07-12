@@ -3,25 +3,39 @@
   height: 100vh;
 }
 
-.parties-list h2 {
+.parties-list-party .party-header {
+  align-items: center;
+  border-bottom: 2px solid #A0A0A0;
   color: #ABABAB;
+  display: flex;
   margin: 0;
-  padding: 1rem 2rem;
+  padding: 1rem;
 }
 
-.parties-list ul {
+.party-header span {
+  flex-grow: 1;
+}
+
+.party-header svg {
+  height: 1.5rem;
+}
+
+.party-header svg path,
+.party-header svg polygon {
+  fill: #ABABAB!important;
+}
+
+.parties-list-party ul {
   list-style-type: none;
   margin: 0;
   padding-left: 0;
 }
 
-.parties-list .party-member {
-  border-top: 2px solid #A0A0A0;
-  padding: 0;
-}
-
-.parties-list .party-member:last-of-type {
+.parties-list-party .party-member {
+  align-items: center;
   border-bottom: 2px solid #A0A0A0;
+  display: flex;
+  padding: 0;
 }
 
 .party-member div {
@@ -29,13 +43,11 @@
 }
 
 .party-member .party-member-level {
-  border-right: 1px solid #A0A0A0;
   font-size: 1.2rem;
   padding: 1rem;
-  text-align: center;
-  width: 3rem;
 }
 
 .party-member .party-member-name {
+  flex-grow: 1;
   padding-left: 1rem;
 }

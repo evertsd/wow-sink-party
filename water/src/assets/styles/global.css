@@ -1,0 +1,20 @@
+.collapsible-enter {
+  max-height: 0;
+  overflow: hidden;
+}
+.collapsible-enter-active {
+  max-height: 100vh;
+  transition: all 360ms;
+}
+.collapsible-exit {
+  max-height: 100vh;
+}
+.collapsible-exit-active {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 360ms;
+}
+.collapsible-exit-done {
+  max-height: 0;
+  overflow: hidden;
+}

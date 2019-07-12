@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Character } from '~/firebase';
 import { PartyService } from '~/services';
+import * as Party from './Party';
 import './styles.css';
 
 const useDefaultParty = () => {
@@ -21,23 +21,9 @@ export const PartiesList = () => {
     return <p>Loading...</p>;
   }
 
-  const characters = state.characters.sort(Character.sortByLevel);
-  console.info('characters', characters);
   return (
     <div className="parties-list">
-      <h2>{state.party.name}</h2>
-      <ul>
-        {characters.map((character: Character.Attributes, i) => (
-          <li key={i} className="party-member" style={{ color: Character.getClassColor(character) }}>
-            <div className="party-member-level">
-              {character.level}
-            </div>
-            <div className="party-member-name">
-              {character.name}
-            </div>
-          </li>
-        ))}
-      </ul>
+      <Party.Component {...state} isOpenByDefault={true} />
     </div>
   );
 };
