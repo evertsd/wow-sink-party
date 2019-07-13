@@ -1,15 +1,30 @@
 .parties-list {
   background: #404040;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 0.5rem;
+}
+
+.parties-list-party {
+  border: 1px solid #ABABAB;
+  border-radius: 3px;
+  margin: 0.5rem;
 }
 
 .parties-list-party .party-header {
   align-items: center;
-  border-bottom: 2px solid #A0A0A0;
+  border-color: #ABABAB;
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 0;
+  transition: border-bottom-width 180ms ease-in-out;
   color: #ABABAB;
   display: flex;
   margin: 0;
   padding: 1rem;
+}
+
+.parties-list-party.members-visible .party-header {
+  border-bottom-width: 1px;
 }
 
 .party-header span {
@@ -33,9 +48,13 @@
 
 .parties-list-party .party-member {
   align-items: center;
-  border-bottom: 2px solid #A0A0A0;
+  border-bottom: 1px solid #A0A0A0;
   display: flex;
   padding: 0;
+}
+
+.parties-list-party .party-member:last-of-type {
+  border-bottom-width: 0;
 }
 
 .party-member div {

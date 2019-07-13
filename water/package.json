@@ -19,7 +19,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "predeploy": "npm run build",
-    "deploy": "aws s3 sync build/ s3://wow-party-sync-ui",
+    "deploy": "aws s3 sync build/ s3://wow-party-sync-ui --profile wow-sink-party",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app eject"
   },

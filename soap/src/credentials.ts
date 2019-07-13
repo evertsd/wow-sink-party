@@ -1,6 +1,14 @@
 import './secrets/bundle'; // import to include in bundle
 import * as credentials from './secrets/credentials.json';
 
+export interface IAWSCredentials {
+  NAME: string;
+  ACCESS_KEY_ID: string;
+  ACCESS_KEY_SECRET: string;
+  REGION: string;
+  OUTPUT: string;
+}
+
 export interface IBattleNetCredentials {
   CLIENT_ID: string;
   CLIENT_SECRET: string;
@@ -18,6 +26,7 @@ export interface IFirebaseCredentials {
 }
 
 export interface ICredential {
+  aws: IAWSCredentials;
   battlenet: IBattleNetCredentials;
   firebase: IFirebaseCredentials;
 }

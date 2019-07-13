@@ -14,13 +14,13 @@ export const Component: React.FC<Props> = ({ characters, isOpenByDefault, party 
   const [isOpen, setIsOpen] = React.useState(isOpenByDefault);
 
   return (
-    <div className="parties-list-party">
+    <div className={cx('parties-list-party', { "members-visible": isOpen })}>
       <h2 className="party-header" onClick={() => setIsOpen(!isOpen)}>
         <span>{party.name}</span>
         {isOpen ? <UpArrow /> : <DownArrow />}
       </h2>
       <CSSTransition in={isOpen} timeout={360} classNames="collapsible">
-        <ul className={cx('collapsible', { "is-collapsed": !isOpen })}>
+        <ul>
           {characters.map((character: Character.Attributes, i) => (
             <li key={i} className="party-member" style={{ color: Character.getClassColor(character) }}>
               <div className="party-member-name">
