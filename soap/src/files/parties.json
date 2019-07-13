@@ -1,17 +1,28 @@
 {
   "parties": {
     "61472496-4028-4fe3-ad91-4307ca1e0bbe": {
-      "name": "Anderson & Co.",
+      "name": "Anderson's Amigos",
       "members": [
         "thesauce:hyjal:us",
         "naifu:hyjal:us",
         "haijaru:hyjal:us",
         "cello:hyjal:us",
-        "lockface:hyjal:us",
-        "kimosobi:area-52:us"
+        "lockface:hyjal:us"
       ],
       "region": "us",
       "realm": "hyjal"
+    },
+    "71961c28-ceaa-4b0f-bb13-aa4249cc7006": {
+      "name": "Nurada's Nerds",
+      "members": [
+        "nurada:area-52:us",
+        "nuradaa:area-52:us",
+        "crisilia:area-52:us",
+        "tenku:area-52:us",
+        "kimosobi:area-52:us"
+      ],
+      "region": "us",
+      "realm": "area-52"
     }
   }
 }

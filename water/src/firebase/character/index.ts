@@ -32,14 +32,19 @@ export const OriginalClassColors: WoWClassColors = {
   [WoWClassType.mage]: [64, 199, 235],
   [WoWClassType.warlock]: [135, 135, 237],
   [WoWClassType.druid]: [255, 125, 10],
+  [WoWClassType.deathKnight]: [196, 31, 59],
+  [WoWClassType.demonHunter]: [163, 48, 201],
 };
 
+// calculated using https://accessible-colors.com/
 export const AccessibleClassColors: WoWClassColors = {
   ...OriginalClassColors,
   [WoWClassType.warrior]: [203, 164, 121],
   [WoWClassType.shaman]: [95, 176, 255],
   [WoWClassType.warlock]: [164, 164, 241],
   [WoWClassType.druid]: [255, 142, 41],
+  [WoWClassType.deathKnight]: [238, 145, 161],
+  [WoWClassType.demonHunter]: [209, 149, 230],
 }
 
 export const sortByLevel = (a: Attributes, b: Attributes) =>

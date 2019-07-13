@@ -1,29 +1,39 @@
 import * as React from 'react';
-import { PartyService } from '~/services';
+import { FilterService, PartyService } from '~/services';
 import * as Party from './Party';
 import './styles.css';
 
+const defaultParties = [
+  '61472496-4028-4fe3-ad91-4307ca1e0bbe',
+  '71961c28-ceaa-4b0f-bb13-aa4249cc7006',
+];
+
+const getParties = async (ids: string[]) => {
+  const parties = await Promise.all(ids.map(PartyService.get));
+
+  return parties.filter(FilterService.notUndefined);
+};
+
 const useDefaultParty = () => {
-  const [state, setState] = React.useState<PartyService.PartyNormalized>();
+  const [state, setState] = React.useState<PartyService.PartyNormalized[]>([]);
 
   React.useEffect(() => {
-    PartyService.get('61472496-4028-4fe3-ad91-4307ca1e0bbe')
-      .then(setState);
+    getParties(defaultParties).then(setState);
   }, []);
 
   return state;
 };
 
 export const PartiesList = () => {
-  const state = useDefaultParty();
+  const parties = useDefaultParty();
 
-  if (!state) {
+  if (!parties) {
     return <p>Loading...</p>;
   }
 
   return (
     <div className="parties-list">
-      <Party.Component {...state} isOpenByDefault={true} />
+      {parties.map(party => <Party.Component {...party} isOpenByDefault={true} />)}
     </div>
   );
 };

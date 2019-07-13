@@ -7,7 +7,7 @@
     "build": "tsc",
     "party-sync": "node dist/scripts/getPartyMemberDetails.js",
     "create-env": "node dist/scripts/createCredentialEnvVars.js ../water/.env",
-    "add-aws-ami": "node dist/scripts/aws/addIAMToCredentials.js ~/.aws/credentials"
+    "add-aws-iam": "node dist/scripts/aws/addIAMToCredentials.js ~/.aws/credentials"
   },
   "author": "",
   "license": "ISC",

@@ -12,7 +12,6 @@ export const get = async (id: string): Promise<PartyNormalized> => {
   ));
 
   characters = characters.sort(Character.sortByLevel);
-  console.info('characters', characters);
 
   return { party, characters };
 }
