@@ -10,6 +10,8 @@ export enum WoWClassType {
   mage = 'Mage',
   warlock = 'Warlock',
   druid = 'Druid',
+  demonHunter = 'Demon Hunter',
+  deathKnight = 'Death Knight',
 }
 
 export interface Attributes extends Base.Attributes {
