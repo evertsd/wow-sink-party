@@ -7,20 +7,30 @@
     "build": "tsc",
     "party-sync": "node dist/scripts/getPartyMemberDetails.js",
     "create-env": "node dist/scripts/createCredentialEnvVars.js ../water/.env",
-    "add-aws-ami": "node dist/scripts/aws/addIAMToCredentials.js ~/.aws/credentials"
+    "aws-write-iam": "node dist/scripts/aws/iam/write.js ~/.aws/credentials",
+    "aws-build-lambdas": "webpack",
+    "aws-update-lambda": "node dist/scripts/aws/lambda/updateCode.js",
+    "aws-zip-lambdas": "node dist/scripts/aws/lambda/zip.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^12.0.12",
     "@types/request-promise": "^4.1.44",
+    "compression-webpack-plugin": "^3.0.0",
     "ts-import-plugin": "^1.6.1",
     "ts-loader": "^6.0.4",
     "tslint": "^5.18.0",
     "tslint-loader": "^3.5.4",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
+    "webpack-zip-files-plugin": "^1.0.0",
+    "zip-webpack-plugin": "^3.0.0"
   },
   "dependencies": {
+    "aws-cli-js": "^2.0.5",
+    "bestzip": "^2.1.4",
     "firebase-admin": "^8.2.0",
     "module-alias": "^2.2.0",
     "request": "^2.88.0",

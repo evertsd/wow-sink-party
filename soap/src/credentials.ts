@@ -5,6 +5,8 @@ export interface IAWSCredentials {
   NAME: string;
   ACCESS_KEY_ID: string;
   ACCESS_KEY_SECRET: string;
+  BUCKET: string;
+  LAMBDAS: string;
   REGION: string;
   OUTPUT: string;
 }
