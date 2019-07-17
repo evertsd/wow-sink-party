@@ -33,7 +33,7 @@ export const PartiesList = () => {
 
   return (
     <div className="parties-list">
-      {parties.map(party => <Party.Component {...party} isOpenByDefault={true} />)}
+      {parties.map((party, i) => <Party.Component key={i} {...party} isOpenByDefault={true} />)}
     </div>
   );
 };

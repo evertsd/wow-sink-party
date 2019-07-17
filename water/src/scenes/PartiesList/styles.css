@@ -16,11 +16,25 @@
   border-style: solid;
   border-width: 0;
   border-bottom-width: 0;
-  transition: border-bottom-width 180ms ease-in-out;
   color: #ABABAB;
   display: flex;
+  font-size: 1.25rem;
+  font-weight: 400;
   margin: 0;
-  padding: 1rem;
+  transition: border-bottom-width 180ms ease-in-out;
+}
+
+.party-header .party-header-content {
+  padding: 0.5rem 1rem 1.5rem;
+  position: relative;
+  width: 100%;
+}
+
+.party-header-content .party-header-subtext {
+  bottom: 0.25rem;
+  font-size: 0.75rem;
+  left: 1rem;
+  position: absolute;
 }
 
 .parties-list-party.members-visible .party-header {
@@ -33,6 +47,7 @@
 
 .party-header svg {
   height: 1.5rem;
+  margin-right: 1rem;
 }
 
 .party-header svg path,
@@ -62,11 +77,12 @@
 }
 
 .party-member .party-member-level {
-  font-size: 1.2rem;
+  font-size: 1.125rem;
   padding: 1rem;
 }
 
 .party-member .party-member-name {
   flex-grow: 1;
+  font-size: 1.125rem;
   padding-left: 1rem;
 }

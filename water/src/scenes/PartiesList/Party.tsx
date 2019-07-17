@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import moment from 'moment';
 import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { DownArrow, UpArrow } from '~/assets/icons';
@@ -10,13 +11,21 @@ interface Props {
   isOpenByDefault?: boolean;
 }
 
+const DATE_FORMAT = 'MMMM Do YYYY, HH:mm';
+
 export const Component: React.FC<Props> = ({ characters, isOpenByDefault, party }) => {
   const [isOpen, setIsOpen] = React.useState(isOpenByDefault);
+  console.info('Party', party);
 
   return (
     <div className={cx('parties-list-party', { "members-visible": isOpen })}>
       <h2 className="party-header" onClick={() => setIsOpen(!isOpen)}>
-        <span>{party.name}</span>
+        <div className="party-header-content">
+          {party.name}
+          {party.modifiedAt && (
+            <span className="party-header-subtext">{`${moment(party.modifiedAt.toDate()).format(DATE_FORMAT)}`}</span>
+          )}
+        </div>
         {isOpen ? <UpArrow /> : <DownArrow />}
       </h2>
       <CSSTransition in={isOpen} timeout={360} classNames="collapsible">
