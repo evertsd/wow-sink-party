@@ -1,4 +1,4 @@
-import { IAWSCredentials } from '~/credentials';
+import { AWS } from '~/credentials';
 
 const SPLIT_CREDENTIALS_REGEX = /\n(?=\[.*\])/;
 
@@ -7,7 +7,7 @@ interface AWSCredential {
   name: string;
 }
 
-export const fromSecret = (secret: IAWSCredentials): AWSCredential => ({
+export const fromSecret = (secret: AWS): AWSCredential => ({
   name: secret.NAME,
   aws_access_key_id: secret.ACCESS_KEY_ID,
   aws_secret_access_key: secret.ACCESS_KEY_SECRET,

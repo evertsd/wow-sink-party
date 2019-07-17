@@ -1,7 +1,7 @@
 import * as request from 'request-promise';
-import { getCredentials } from '~/credentials';
+import * as Credentials from '~/credentials';
 
-const { CLIENT_ID, CLIENT_SECRET } = getCredentials().battlenet;
+const { CLIENT_ID, CLIENT_SECRET } = Credentials.get().battlenet;
 export const DEFAULT_REGION = 'us';
 
 export interface AccessToken {

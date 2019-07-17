@@ -8,9 +8,9 @@ https://opensource.org/licenses/MIT
 */
 
 import firebase from 'firebase-admin';
-import { getCredentials } from '~/credentials';
+import * as Credentials from '~/credentials';
 
-const credentials = getCredentials().firebase;
+const credentials = Credentials.get().firebase;
 
 export enum FirebaseErrorTypes {
   NOT_FOUND = 'NOT_FOUND',
