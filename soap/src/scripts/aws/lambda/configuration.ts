@@ -1,31 +1,44 @@
+import { Configuration } from '~/aws-cli';
 import * as Credentials from '~/credentials';
+import { FilterService } from '~/services';
 
 export enum Lambda {
   getParty = 'getParty',
 }
 
 interface Environment { [key: string]: string; }
-interface Model { credentials: Credentials.Key[]; }
+interface Model { credentials: Configuration.KEY[]; }
 type Map = { [L in Lambda]: Model };
 
 export const map: Map = {
   [Lambda.getParty]: {
-    credentials: [Credentials.Key.BATTLENET, Credentials.Key.FIREBASE],
+    credentials: [Configuration.KEY.bnet],
   },
 };
 
-export const getEnvironment = (lambda: Lambda, base: Environment = {}, env?: string): Environment => {
+export const getEnvironment = async (lambda: Lambda, base: Environment = {}, env?: string): Promise<Environment> => {
   const secrets = Credentials.get(env);
   const requiredSecrets = map[lambda].credentials;
+  console.info('getEnvironment, requiredSecrets', requiredSecrets);
 
-  return requiredSecrets.reduce((environment, key) => {
-    const secret = secrets[key] as unknown as Environment;
+  const environments = await Promise.all(
+    requiredSecrets
+      .map(secret => mapSecretToEnvironment(secrets, secret))
+      .filter(FilterService.notUndefined),
+  );
+  console.info('getEnvironment, environments', environments);
 
-    Object.keys(secret)
-      .forEach(sk => environment[toEnvironmentKey(key, sk)] = secret[sk]);
-
-    return environment;
-  }, base);
+  return Object.assign({}, base, ...(environments));
 };
 
-const toEnvironmentKey = (...keys: string[]) => keys.map(k => k.toUpperCase()).join('_');
+export const mapSecretToEnvironment = (
+  secrets: Credentials.Model,
+  key: Configuration.KEY,
+): Promise<Environment> | undefined => {
+  switch (key) {
+  case Configuration.KEY.bnet:
+    return Configuration.bnet.getEnvironment(secrets[key]);
+  default:
+    return;
+  }
+};

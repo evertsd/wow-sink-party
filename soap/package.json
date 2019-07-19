@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "aws-cli-js": "^2.0.5",
+    "aws-sdk": "^2.495.0",
     "bestzip": "^2.1.4",
     "firebase-admin": "^8.2.0",
     "module-alias": "^2.2.0",

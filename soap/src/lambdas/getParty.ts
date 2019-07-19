@@ -4,7 +4,9 @@ const okResponse = (message: string) => ({
 });
 
 export const handler = async (event: any) => {
+  const partyId = event.pathParameters.id;
+
   console.log(JSON.stringify(event, null, 2));
   console.log(process.env.MESSAGE);
-  return okResponse(process.env.MESSAGE || 'Hello!');
+  return okResponse(partyId);
 };

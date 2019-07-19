@@ -1,11 +1,14 @@
 // tslint:disable:no-var-requires
 import 'module-alias/register';
-import { Aws } from 'aws-cli-js';
 import * as path from 'path';
+import { connection } from '~/aws-cli';
 import * as Credentials from '~/credentials';
 import * as Configuration from './configuration';
 
-const credentials = Credentials.get().aws;
+const credentials = Credentials.get();
+const profile = credentials.aws.NAME;
+connection.initialize(credentials.aws);
+
 const lambdaKey = process.argv[2] as Configuration.Lambda;
 const lambda = Configuration.map[lambdaKey];
 
@@ -16,29 +19,29 @@ if (!lambda) {
 export const getLambdaBundlePath = (): string =>
   path.resolve(`./lambdas/zip/${lambdaKey}.zip`);
 
-export const getEnvironment = (): string =>
-  JSON.stringify({ Variables: Configuration.getEnvironment(lambdaKey) });
+export const getEnvironment = async (): Promise<string> => {
+  const Variables = await Configuration.getEnvironment(lambdaKey);
 
-const aws = new Aws({
-  accessKey: credentials.ACCESS_KEY_ID,
-  secretKey: credentials.ACCESS_KEY_SECRET,
-});
+  return JSON.stringify({ Variables });
+};
 
 const getUpdateCodeCommand = () => `lambda update-function-code \
---profile ${credentials.NAME} \
+--profile ${profile} \
 --function-name ${lambdaKey} \
 --zip-file fileb://${getLambdaBundlePath()} \
 `;
 
-const getUpdateConfigurationCommand = () => `lambda update-function-configuration \
---profile ${credentials.NAME} \
+const getUpdateConfigurationCommand = (environment: string) => `lambda update-function-configuration \
+--profile ${profile} \
 --function-name ${lambdaKey} \
---environment '${getEnvironment()}' \
+--environment '${environment}' \
 `;
 
 export const updateFunction = async () => {
-  const updateCodeResponse = await aws.command(getUpdateCodeCommand());
-  const updateEnvironmentResponse = await aws.command(getUpdateConfigurationCommand());
+  const updateCodeResponse = await connection.aws.command(getUpdateCodeCommand());
+
+  const environment = await getEnvironment();
+  const updateEnvironmentResponse = await connection.aws.command(getUpdateConfigurationCommand(environment));
 
   console.log(updateCodeResponse);
   console.log(updateEnvironmentResponse);

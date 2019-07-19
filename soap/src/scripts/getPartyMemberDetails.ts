@@ -1,6 +1,7 @@
 import 'module-alias/register';
 import * as bnet from '~/battle-net/api';
 import * as BnetCharacter from '~/battle-net/character';
+import * as Credentials from '~/credentials';
 import * as json from '~/files/parties.json';
 import * as FirebaseCharacter from '~/firebase/character';
 import * as Party from '~/firebase/party';
@@ -29,7 +30,7 @@ const saveCharacter = async (
 };
 
 const saveParty = async (id: string, party: PartyJSON) => {
-  const token = await bnet.getToken(party.region);
+  const token = await bnet.getToken(Credentials.get().battlenet, party.region);
 
   await Promise.all(party.members.map(member =>
     saveCharacter(member, token, party.region),

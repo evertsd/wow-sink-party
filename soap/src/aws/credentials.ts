@@ -1,13 +1,21 @@
-import { AWS } from '~/credentials';
-
 const SPLIT_CREDENTIALS_REGEX = /\n(?=\[.*\])/;
 
-interface AWSCredential {
+interface Profile {
   [key: string]: string;
   name: string;
 }
 
-export const fromSecret = (secret: AWS): AWSCredential => ({
+export interface Model {
+  NAME: string;
+  ACCESS_KEY_ID: string;
+  ACCESS_KEY_SECRET: string;
+  BUCKET: string;
+  REGION: string;
+  OUTPUT: string;
+  KMS: string;
+}
+
+export const fromSecret = (secret: Model): Profile => ({
   name: secret.NAME,
   aws_access_key_id: secret.ACCESS_KEY_ID,
   aws_secret_access_key: secret.ACCESS_KEY_SECRET,
@@ -15,34 +23,31 @@ export const fromSecret = (secret: AWS): AWSCredential => ({
   output: secret.OUTPUT,
 });
 
-export const readFile = (file: string): AWSCredential[] =>
+export const readFile = (file: string): Profile[] =>
   file
     .split(SPLIT_CREDENTIALS_REGEX)
-    .map(mapBlobToAWSCredential);
+    .map(mapBlobToProfile);
 
-export const toFile = (credentials: AWSCredential[]) =>
-  `${credentials.map(mapAWSCredentialToBlob).join('\n\n')}\n`;
+export const toFile = (profiles: Profile[]) =>
+  `${profiles.map(mapProfileToBlob).join('\n\n')}\n`;
 
 const mapNameAttributeToName = (nameBlob: string) =>
   nameBlob.replace(/\[|\]/gi, '');
 
-const mapBlobToAWSCredential = (blob: string): AWSCredential => {
+const mapBlobToProfile = (blob: string): Profile => {
   const attributes = blob.split(/\n/);
-  const defaultCredential: AWSCredential = {
-    name: mapNameAttributeToName(attributes[0]),
-  };
 
-  return attributes.slice(1).reduce((credential, attribute) => {
+  return attributes.slice(1).reduce((profile: Profile, attribute) => {
     if (attribute.includes('=')) {
       const [key, value] = attribute.split(/\s?=\s?/);
 
-      credential[key] = value;
+      profile[key] = value;
     }
 
-    return credential;
-  }, defaultCredential);
+    return profile;
+  }, { name: mapNameAttributeToName(attributes[0]) });
 };
 
-const mapAWSCredentialToBlob = ({ name, ...attributes }: AWSCredential) =>
+const mapProfileToBlob = ({ name, ...attributes }: Profile) =>
   Object.keys(attributes)
     .reduce((blob, key) => `${blob}\n${key} = ${attributes[key]}`, `[${name}]`);

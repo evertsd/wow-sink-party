@@ -14,6 +14,7 @@ export interface AWS {
   BUCKET: string;
   REGION: string;
   OUTPUT: string;
+  KMS: string;
 }
 
 export interface BattleNet {
