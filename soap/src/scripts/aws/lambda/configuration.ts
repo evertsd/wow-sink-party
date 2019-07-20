@@ -1,22 +1,25 @@
 import { Configuration } from '~/aws-cli';
-import * as Credentials from '~/credentials';
-import { FilterService } from '~/services';
+import * as Credentials from '~/credentials/secrets';
+import { Environment, FilterService } from '~/services';
 
 export enum Lambda {
   getParty = 'getParty',
 }
 
-interface Environment { [key: string]: string; }
-interface Model { credentials: Configuration.KEY[]; }
+interface Model { credentials: Credentials.KEY[]; }
 type Map = { [L in Lambda]: Model };
 
 export const map: Map = {
   [Lambda.getParty]: {
-    credentials: [Configuration.KEY.bnet],
+    credentials: [Credentials.KEY.BATTLENET],
   },
 };
 
-export const getEnvironment = async (lambda: Lambda, base: Environment = {}, env?: string): Promise<Environment> => {
+export const getEnvironment = async (
+  lambda: Lambda,
+  base: Environment.Model = {},
+  env?: string,
+): Promise<Environment.Model> => {
   const secrets = Credentials.get(env);
   const requiredSecrets = map[lambda].credentials;
   console.info('getEnvironment, requiredSecrets', requiredSecrets);
@@ -33,10 +36,10 @@ export const getEnvironment = async (lambda: Lambda, base: Environment = {}, env
 
 export const mapSecretToEnvironment = (
   secrets: Credentials.Model,
-  key: Configuration.KEY,
-): Promise<Environment> | undefined => {
+  key: Credentials.KEY,
+): Promise<Environment.Model> | undefined => {
   switch (key) {
-  case Configuration.KEY.bnet:
+  case Credentials.KEY.BATTLENET:
     return Configuration.bnet.getEnvironment(secrets[key]);
   default:
     return;

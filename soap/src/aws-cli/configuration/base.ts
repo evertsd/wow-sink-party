@@ -1,13 +1,6 @@
+import * as Credentials from '~/credentials/schema';
+import { Environment } from '~/services';
 import { connection } from '../connection';
-
-export enum KEY {
-  bnet = 'battlenet',
-  firebase = 'firebase',
-}
-
-export interface Environment<K = string> { [key: string]: K; }
-
-export const toEnvironmentKey = (...keys: string[]): string => keys.map(k => k.toUpperCase()).join('_');
 
 export const encryptVariable = async (variable: string) => {
   const response = await connection.aws.command(
@@ -17,29 +10,30 @@ export const encryptVariable = async (variable: string) => {
   return response.object.CiphertextBlob;
 };
 
-export const toEnvironment = async (creds: Environment, secretCreds: string[], parent: KEY) => {
-  const credTuples = Object.keys(creds)
-    .filter(k => !secretCreds.includes(k))
-    .map(k => [toEnvironmentKey(parent, k), creds[k]]);
+export const toEnvironment = async <T extends Environment.Model>(
+  credentials: T,
+  configuration: Credentials.Configuration<T>,
+): Promise<Environment.Model> => {
+  const { key, secrets } = configuration;
+  const publicTuples = Object.keys(credentials)
+    .filter(k => !Credentials.isKeySecret(k, configuration))
+    .map(k => [Environment.flattenKey(key, k), credentials[k]]);
 
-  const secretTuples = await Promise.all(secretCreds
-    .filter(secret => creds[secret] !== undefined)
-    .map(secret => getSecretTuple(toEnvironmentKey(parent, secret), creds[secret])),
+  const secretTuples = await Promise.all(secrets
+    .filter(secret => credentials[secret] !== undefined)
+    .map(secret => getSecretTuple(
+      Environment.flattenKey(key, secret as string),
+      credentials[secret] as string),
+    ),
   );
 
-  return credTuples
+  return publicTuples
     .concat(secretTuples)
-    .reduce(reduceTuplesToEnvironment, {});
+    .reduce(Environment.reduceTuples, {});
 };
 
-const getSecretTuple = async (key: string, rawValue: string) => {
+const getSecretTuple = async (key: string, rawValue: string): Promise<Environment.Tuple> => {
   const value = await encryptVariable(rawValue);
 
   return [key, value];
-};
-
-const reduceTuplesToEnvironment = (environment: Environment, [key, value]: string[]): Environment => {
-  environment[key] = value;
-
-  return environment;
 };

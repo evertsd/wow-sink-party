@@ -1,12 +1,7 @@
 import * as request from 'request-promise';
+import * as Credentials from '~/credentials/schema/battle-net';
 
 export const DEFAULT_REGION = 'us';
-
-export const CREDENTIAL_KEY = 'battlenet';
-export interface Credentials {
-  CLIENT_ID: string;
-  CLIENT_SECRET: string;
-}
 
 export interface AccessToken {
   access_token: string;
@@ -28,7 +23,7 @@ export const getAuthHostname = (region: string = DEFAULT_REGION) =>
   `https://${region}.battle.net`;
 
 export const getToken = async (
-  credentials: Credentials,
+  credentials: Credentials.Model,
   region: string = DEFAULT_REGION,
 ): Promise<AccessToken> => {
   const response = await request.get({

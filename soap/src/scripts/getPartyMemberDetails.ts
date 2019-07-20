@@ -1,7 +1,7 @@
 import 'module-alias/register';
 import * as bnet from '~/battle-net/api';
 import * as BnetCharacter from '~/battle-net/character';
-import * as Credentials from '~/credentials';
+import * as Credentials from '~/credentials/secrets';
 import * as json from '~/files/parties.json';
 import * as FirebaseCharacter from '~/firebase/character';
 import * as Party from '~/firebase/party';

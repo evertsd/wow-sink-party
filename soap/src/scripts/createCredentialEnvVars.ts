@@ -1,6 +1,6 @@
 import 'module-alias/register';
 import * as fs from 'fs';
-import * as Credentials from '~/credentials';
+import * as Credentials from '~/credentials/secrets';
 
 const PATH_TO_ENV = process.argv[2];
 

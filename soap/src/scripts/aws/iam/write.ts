@@ -1,7 +1,7 @@
 import 'module-alias/register';
 import * as fs from 'fs';
 import * as AWS from '~/aws';
-import * as Credentials from '~/credentials';
+import * as Credentials from '~/credentials/secrets';
 
 const readFile = (path: string): Promise<string> =>
   new Promise((resolve, reject) =>

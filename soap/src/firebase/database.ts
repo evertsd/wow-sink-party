@@ -8,7 +8,7 @@ https://opensource.org/licenses/MIT
 */
 
 import firebase from 'firebase-admin';
-import * as Credentials from '~/credentials';
+import * as Credentials from '~/credentials/secrets';
 
 const credentials = Credentials.get().firebase;
 

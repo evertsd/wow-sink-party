@@ -1,5 +1,5 @@
-import { Credentials } from '~/battle-net/api';
-import { toEnvironment, Environment, KEY } from './base';
+import { bnet } from '~/credentials/schema';
+import { toEnvironment } from './base';
 
-export const getEnvironment = async (secrets: Credentials): Promise<Environment> =>
-  toEnvironment(secrets as unknown as Environment, ['CLIENT_SECRET'], KEY.bnet);
+export const getEnvironment = async (secrets: bnet.Model) =>
+  toEnvironment<bnet.Model>(secrets, bnet.configuration);

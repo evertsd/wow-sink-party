@@ -1,3 +1,4 @@
+import * as Environment from './environment';
 import * as FilterService from './filter';
 
-export { FilterService };
+export { Environment, FilterService };

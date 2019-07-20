@@ -2,7 +2,7 @@
 import 'module-alias/register';
 import * as path from 'path';
 import { connection } from '~/aws-cli';
-import * as Credentials from '~/credentials';
+import * as Credentials from '~/credentials/secrets';
 import * as Configuration from './configuration';
 
 const credentials = Credentials.get();
@@ -40,11 +40,16 @@ const getUpdateConfigurationCommand = (environment: string) => `lambda update-fu
 export const updateFunction = async () => {
   const updateCodeResponse = await connection.aws.command(getUpdateCodeCommand());
 
-  const environment = await getEnvironment();
-  const updateEnvironmentResponse = await connection.aws.command(getUpdateConfigurationCommand(environment));
+  try {
+    const environment = await getEnvironment();
+    const updateEnvironmentResponse = await connection.aws.command(getUpdateConfigurationCommand(environment));
+
+    console.log(updateEnvironmentResponse);
+  } catch (e) {
+    console.error('Could not update environment', e);
+  }
 
   console.log(updateCodeResponse);
-  console.log(updateEnvironmentResponse);
 };
 
 updateFunction();
