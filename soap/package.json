@@ -10,6 +10,7 @@
     "aws-write-iam": "node dist/scripts/aws/iam/write.js ~/.aws/credentials",
     "aws-build-lambdas": "webpack",
     "aws-update-lambda": "node dist/scripts/aws/lambda/updateCode.js",
+    "aws-update-lambda-configuration": "node dist/scripts/aws/lambda/updateConfiguration.js",
     "aws-zip-lambdas": "node dist/scripts/aws/lambda/zip.js",
     "aws-prepare-lambdas": "npm run aws-build-lambdas && npm run aws-zip-lambdas"
   },

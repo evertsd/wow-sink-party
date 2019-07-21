@@ -1,16 +1,9 @@
+import * as AWS from 'aws-sdk';
 import * as Credentials from '~/credentials/schema';
 import { Environment } from '~/services';
-import { connection } from '../connection';
 
-export const encryptVariable = async (variable: string) => {
-  const response = await connection.aws.command(
-    `kms encrypt --key-id ${connection.credentials.KMS} --plaintext "${variable}"`,
-  );
-
-  return response.object.CiphertextBlob;
-};
-
-export const toEnvironment = async <T extends Environment.Model>(
+export const write = async <T extends Environment.Model>(
+  kmsKey: string,
   credentials: T,
   configuration: Credentials.Configuration<T>,
 ): Promise<Environment.Model> => {
@@ -22,6 +15,7 @@ export const toEnvironment = async <T extends Environment.Model>(
   const secretTuples = await Promise.all(secrets
     .filter(secret => credentials[secret] !== undefined)
     .map(secret => getSecretTuple(
+      kmsKey,
       Environment.flattenKey(key, secret as string),
       credentials[secret] as string),
     ),
@@ -32,8 +26,22 @@ export const toEnvironment = async <T extends Environment.Model>(
     .reduce(Environment.reduceTuples, {});
 };
 
-const getSecretTuple = async (key: string, rawValue: string): Promise<Environment.Tuple> => {
-  const value = await encryptVariable(rawValue);
+export const encrypt = async (KeyId: string, Plaintext: string): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const kms = new AWS.KMS();
+
+    kms.encrypt({ KeyId, Plaintext }, (err, response) => {
+      if (err) { return reject(err); }
+      if (!response.CiphertextBlob) { return reject('CiphrtextBlob is undefiend'); }
+
+      const data = Buffer.from(response.CiphertextBlob as string).toJSON().data;
+
+      resolve(JSON.stringify(data));
+    });
+  });
+
+const getSecretTuple = async (kmsKey: string, key: string, rawValue: string): Promise<Environment.Tuple> => {
+  const value = await encrypt(kmsKey, rawValue);
 
   return [key, value];
 };

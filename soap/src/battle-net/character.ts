@@ -1,4 +1,3 @@
-import 'module-alias/register';
 import * as request from 'request-promise';
 import * as api from './api';
 

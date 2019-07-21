@@ -1,6 +1,6 @@
-import { Configuration } from '~/aws-cli';
+import { Environment } from '~/aws/sdk';
 import * as Credentials from '~/credentials/secrets';
-import { Environment, FilterService } from '~/services';
+import { FilterService } from '~/services';
 
 export enum Lambda {
   getParty = 'getParty',
@@ -40,7 +40,7 @@ export const mapSecretToEnvironment = (
 ): Promise<Environment.Model> | undefined => {
   switch (key) {
   case Credentials.KEY.BATTLENET:
-    return Configuration.bnet.getEnvironment(secrets[key]);
+    return Environment.write(secrets.aws.KMS, secrets[key], Credentials.bnet.configuration);
   default:
     return;
   }

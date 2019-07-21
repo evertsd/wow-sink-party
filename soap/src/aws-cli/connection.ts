@@ -5,7 +5,7 @@ import { aws } from '~/credentials/schema';
 interface Connection {
   aws: Aws;
   credentials: aws.Model;
-  initialize: (secrets: aws.Model) => void;
+  initialize: (secrets: aws.Model) => Connection;
 }
 
 export const awsConnection: Connection = {
@@ -14,7 +14,7 @@ export const awsConnection: Connection = {
   initialize: () => { throw Error('Uninitialized'); },
 };
 
-const initialize = (credentials: aws.Model) => {
+const initialize = (credentials: aws.Model): Connection =>
   Object.assign(awsConnection, {
     aws: new Aws({
       accessKey: credentials.ACCESS_KEY_ID,
@@ -22,7 +22,6 @@ const initialize = (credentials: aws.Model) => {
     }),
     credentials,
   });
-};
 
 awsConnection.initialize = initialize;
 
