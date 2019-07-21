@@ -2,16 +2,12 @@ import { Configuration, KEY } from './base';
 
 export interface Model {
   ID: string;
-  KEY_FILENAME: string;
-  KEY: string;
-  DOMAIN: string;
   URL: string;
-  BUCKET: string;
-  SENDER: string;
-  GOOGLE_PROVIDER_ID: string;
+  PRIVATE_KEY: string;
+  CLIENT_EMAIL: string;
 }
 
 export const configuration: Configuration<Model> = {
-  key: KEY.FIREBASE,
-  secrets: [],
+  key: KEY.FIREBASE_ADMIN,
+  secrets: ['PRIVATE_KEY'],
 };

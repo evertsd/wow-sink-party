@@ -1,3 +1,3 @@
-import * as Environment from './environment';
+import * as kms from './kms';
 
-export { Environment };
+export { kms };

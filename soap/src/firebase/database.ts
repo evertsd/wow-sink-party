@@ -8,68 +8,48 @@ https://opensource.org/licenses/MIT
 */
 
 import firebase from 'firebase-admin';
-import * as Credentials from '~/credentials/secrets';
+import { firebaseAdmin } from '~/credentials/schema';
 
-const credentials = Credentials.get().firebase;
-
-export enum FirebaseErrorTypes {
-  NOT_FOUND = 'NOT_FOUND',
-  UNEXPECTED_ERROR = 'UNEXPECTED_ERROR',
+interface Connection {
+  db: firebase.firestore.Firestore;
+  characters: firebase.firestore.CollectionReference;
+  parties: firebase.firestore.CollectionReference;
+  users: firebase.firestore.CollectionReference;
+  isInitialized?: boolean;
 }
 
-export interface FirebaseError {
-  code: FirebaseErrorTypes;
-  message: string;
-}
-
-export interface FirebaseQuery {
-  data?: firebase.firestore.QueryDocumentSnapshot[];
-  error?: FirebaseError;
-  loading?: boolean;
-}
-
-export interface WithQuery {
-  query: FirebaseQuery;
-}
-
-export interface FirebaseMutation {
-  data?: firebase.firestore.DocumentReference | firebase.firestore.DocumentReference[];
-  error?: FirebaseError;
-  loading?: boolean;
-}
-
-export const defaultErrorHandler = (error: Error | FirebaseError) => {
-  if (Object.values(FirebaseErrorTypes).includes((error as FirebaseError).code)) {
-    return Promise.reject({ error });
-  }
-
-  return Promise.reject({ error: { code: FirebaseErrorTypes.UNEXPECTED_ERROR, message: error.message } });
+export const Database: Connection = {
+  db: {} as firebase.firestore.Firestore,
+  characters: {} as firebase.firestore.CollectionReference,
+  parties: {} as firebase.firestore.CollectionReference,
+  users: {} as firebase.firestore.CollectionReference,
+  isInitialized: false,
 };
 
-export const createQueryError = (message: string) =>
-  Promise.reject({ error: { code: FirebaseErrorTypes.UNEXPECTED_ERROR, message } });
+export const initialize = (credentials: firebaseAdmin.Model): Connection =>
+  Database.isInitialized ? Database : Object.assign(Database, createDatabase(credentials));
 
-const DatabaseFactory = () => {
-  const serviceAccount = require(`~/secrets/${credentials.KEY_FILENAME}`);
+const createDatabase = (credentials: firebaseAdmin.Model) => {
+  const account: firebase.ServiceAccount = {
+    projectId: credentials.ID,
+    privateKey: credentials.PRIVATE_KEY,
+    clientEmail: credentials.CLIENT_EMAIL,
+  };
 
   firebase.initializeApp({
-    credential: firebase.credential.cert(serviceAccount),
+    credential: firebase.credential.cert(account),
     databaseURL: credentials.URL,
   });
 
-  const db = firebase.firestore();
+  const ref = firebase.firestore();
 
   return {
-    db,
-    characters: db.collection('characters'),
-    parties: db.collection('parties'),
-    users: db.collection('users'),
+    ref,
+    characters: ref.collection('characters'),
+    parties: ref.collection('parties'),
+    users: ref.collection('users'),
+    isInitialized: true,
   };
 };
-
-export const Database = DatabaseFactory();
-
-export const auth = firebase.auth;
-export const initAuth = auth;
 
 export const now = () => firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp;

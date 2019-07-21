@@ -1,7 +1,6 @@
 import { Configuration, KEY } from './base';
 
 export interface Model {
-  readonly [key: string]: string;
   NAME: string;
   ACCESS_KEY_ID: string;
   ACCESS_KEY_SECRET: string;

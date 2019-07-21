@@ -1,0 +1,11 @@
+{
+  "moduleNameMapper": {
+    "~(.*)$": "<rootDir>/src/$1"
+  },
+  "moduleFileExtensions": ["ts", "js"],
+  "roots": ["src"],
+  "transform": {
+    ".ts": "ts-jest"
+  },
+  "verbose": true
+}

@@ -1,6 +1,6 @@
-import { Environment } from '~/aws/sdk';
+import { kms } from '~/aws/sdk';
 import * as Credentials from '~/credentials/secrets';
-import { FilterService } from '~/services';
+import { EnvironmentService, FilterService } from '~/services';
 
 export enum Lambda {
   getParty = 'getParty',
@@ -11,36 +11,45 @@ type Map = { [L in Lambda]: Model };
 
 export const map: Map = {
   [Lambda.getParty]: {
-    credentials: [Credentials.KEY.BATTLENET],
+    credentials: [Credentials.KEY.BATTLENET, Credentials.KEY.FIREBASE_ADMIN],
   },
 };
 
 export const getEnvironment = async (
   lambda: Lambda,
-  base: Environment.Model = {},
+  base: EnvironmentService.Model = {},
   env?: string,
-): Promise<Environment.Model> => {
+): Promise<EnvironmentService.Model> => {
   const secrets = Credentials.get(env);
   const requiredSecrets = map[lambda].credentials;
-  console.info('getEnvironment, requiredSecrets', requiredSecrets);
-
+  const encrypt = kms.createEncrypt(secrets.aws.KMS);
   const environments = await Promise.all(
     requiredSecrets
-      .map(secret => mapSecretToEnvironment(secrets, secret))
+      .map(secret => mapSecretToEnvironment(encrypt, secrets, secret))
       .filter(FilterService.notUndefined),
   );
-  console.info('getEnvironment, environments', environments);
 
-  return Object.assign({}, base, ...(environments));
+  return Object.assign({}, base, ...environments);
 };
 
 export const mapSecretToEnvironment = (
+  transform: EnvironmentService.Transform,
   secrets: Credentials.Model,
   key: Credentials.KEY,
-): Promise<Environment.Model> | undefined => {
+): Promise<EnvironmentService.Model> | undefined => {
   switch (key) {
   case Credentials.KEY.BATTLENET:
-    return Environment.write(secrets.aws.KMS, secrets[key], Credentials.bnet.configuration);
+    return EnvironmentService.mapConfigToModel(
+      transform,
+      secrets[key],
+      Credentials.bnet.configuration,
+    );
+  case Credentials.KEY.FIREBASE_ADMIN:
+    return EnvironmentService.mapConfigToModel(
+      transform,
+      secrets[key],
+      Credentials.firebaseAdmin.configuration,
+    );
   default:
     return;
   }

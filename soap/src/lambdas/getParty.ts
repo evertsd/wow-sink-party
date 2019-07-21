@@ -1,6 +1,7 @@
-import { Environment } from '~/aws/sdk';
+import { kms } from '~/aws/sdk';
 import { api, Character } from '~/battle-net';
 import { bnet } from '~/credentials/schema';
+import { EnvironmentService } from '~/services';
 
 const okResponse = (obj: object) => ({
   statusCode: 200,
@@ -17,7 +18,13 @@ export const handler = async (event: any) => {
     process.env.BATTLENET_CLIENT_SECRET,
   );
 
-  const credentials = await Environment.read<bnet.Model>(process.env, bnet.configuration);
+  const decrypt = kms.createDecrypt();
+
+  const credentials = await EnvironmentService.mapModelToConfig<bnet.Model>(
+    decrypt,
+    process.env as EnvironmentService.Model,
+    bnet.configuration,
+  );
   const { access_token } = await api.getToken(credentials);
   const character = await Character.get(realm, partyId, {
     region: api.DEFAULT_REGION,
