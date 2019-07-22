@@ -19,10 +19,16 @@ export interface Model extends GUIDs, Attributes {}
 
 const Mapper: Base.FirebaseMapper<Attributes, GUIDs, Refs> = {
   read: ({ members, ...form }) => Base.Mapper.read(form) as Attributes,
-  deserialize: ({ members, ...model }) => ({
-    ...Base.Mapper.deserialize(model),
-    members: members.map((member) => member.id),
-  }),
+  deserialize: ({ members, ...model }) => {
+    console.info('Mapper.deserialize', members);
+    console.info('Base.Mapper.deserialize(model)', Base.Mapper.deserialize(model));
+    console.info('members.map((member) => member.id)', members.map((member) => member.id));
+
+    return {
+      ...Base.Mapper.deserialize(model),
+      members: members.map((member) => member.id),
+    };
+  },
   serialize: ({ members, ...model }, opts) => ({
     ...(Base.Mapper.serialize(model, opts) as Refs),
     members: members.map((member) => Database.characters.doc(member)),

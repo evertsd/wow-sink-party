@@ -1,8 +1,10 @@
 import { kms } from '~/aws/sdk';
-import { api, Character } from '~/battle-net';
-import { bnet, firebaseAdmin } from '~/credentials/schema';
+// import { api, Character } from '~/battle-net';
+import { firebaseAdmin } from '~/credentials/schema';
+// import { bnet, firebaseAdmin } from '~/credentials/schema';
 import { Firebase, Party } from '~/firebase';
-import { CharacterService, EnvironmentService } from '~/services';
+import { EnvironmentService } from '~/services';
+// import { CharacterService, EnvironmentService } from '~/services';
 
 const okResponse = (obj: object) => ({
   statusCode: 200,
@@ -11,8 +13,14 @@ const okResponse = (obj: object) => ({
 
 export const handler = async (event: any) => {
   const partyId = event.pathParameters.id;
+  console.info('partyId', partyId);
   await intializeFirebase();
-
+  console.log('firebase initialized');
+  console.info('Firebase.Database.isInitialized', Firebase.Database.isInitialized);
+  console.info(
+    'Object.keys(Firebase.Database.parties)',
+    Object.keys(Firebase.Database.parties),
+  );
   const party = await Party.get(partyId);
 
   console.log(JSON.stringify(event, null, 2));
@@ -27,9 +35,9 @@ const intializeFirebase = async (): Promise<Firebase.Connection> => {
     firebaseAdmin.configuration,
   );
 
-  return await Firebase.initialize(credentials);
+  return Firebase.initialize(credentials);
 };
-
+/*
 export const getCharacter = async (id: string, { access_token }: api.AccessToken) => {
   const { name, realm, region } = CharacterService.getId(id);
 
@@ -45,3 +53,4 @@ export const getBnetToken = async (): Promise<api.AccessToken> => {
 
   return await api.getToken(credentials);
 };
+*/

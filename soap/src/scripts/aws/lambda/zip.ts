@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const PATH_TO_LAMBDAS = path.resolve('lambdas');
+const FILE_BLACKLIST = ['.DS_Store'];
 
 const zipBundles = async () => {
   const bundles = await getBundles();
@@ -15,8 +16,8 @@ const getBundles = async (): Promise<string[]> =>
   new Promise((resolve, reject) =>
     fs.readdir(`${PATH_TO_LAMBDAS}/bundles`, (err, files) => {
       if (err) { return reject(err); }
-
-      return resolve(files.map(filename => filename.split('.')[0]));
+      console.info('getBundles, files', files);
+      return resolve(files.filter(filename => !FILE_BLACKLIST.includes(filename)));
     }),
   );
 

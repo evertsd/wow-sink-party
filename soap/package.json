@@ -13,7 +13,8 @@
     "aws-update-lambda": "node dist/scripts/aws/lambda/updateCode.js",
     "aws-update-lambda-configuration": "node dist/scripts/aws/lambda/updateConfiguration.js",
     "aws-zip-lambdas": "node dist/scripts/aws/lambda/zip.js",
-    "aws-prepare-lambdas": "npm run aws-build-lambdas && npm run aws-zip-lambdas"
+    "aws-prepare-lambdas": "npm run aws-build-lambdas && npm run aws-zip-lambdas",
+    "aws-test-lambda": "node dist/scripts/aws/lambda/testLambda.js"
   },
   "author": "",
   "license": "ISC",

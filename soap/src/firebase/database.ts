@@ -42,7 +42,7 @@ const createDatabase = (credentials: firebaseAdmin.Model) => {
   });
 
   const ref = firebase.firestore();
-
+  console.info('createDatabase', credentials.ID, credentials.CLIENT_EMAIL);
   return {
     ref,
     characters: ref.collection('characters'),
