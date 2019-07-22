@@ -1,7 +1,8 @@
 import { kms } from '~/aws/sdk';
 import { api, Character } from '~/battle-net';
-import { bnet } from '~/credentials/schema';
-import { EnvironmentService } from '~/services';
+import { bnet, firebaseAdmin } from '~/credentials/schema';
+import { Firebase, Party } from '~/firebase';
+import { CharacterService, EnvironmentService } from '~/services';
 
 const okResponse = (obj: object) => ({
   statusCode: 200,
@@ -10,28 +11,37 @@ const okResponse = (obj: object) => ({
 
 export const handler = async (event: any) => {
   const partyId = event.pathParameters.id;
-  const realm = event.queryStringParameters.realm;
-  console.info(
-    'getParty variables',
-    partyId,
-    realm,
-    process.env.BATTLENET_CLIENT_SECRET,
+  await intializeFirebase();
+
+  const party = await Party.get(partyId);
+
+  console.log(JSON.stringify(event, null, 2));
+
+  return okResponse({ party });
+};
+
+const intializeFirebase = async (): Promise<Firebase.Connection> => {
+  const credentials = await EnvironmentService.mapModelToConfig<firebaseAdmin.Model>(
+    kms.createDecrypt(),
+    process.env as EnvironmentService.Model,
+    firebaseAdmin.configuration,
   );
 
-  const decrypt = kms.createDecrypt();
+  return await Firebase.initialize(credentials);
+};
 
+export const getCharacter = async (id: string, { access_token }: api.AccessToken) => {
+  const { name, realm, region } = CharacterService.getId(id);
+
+  return await Character.get(realm, name, { region, access_token });
+};
+
+export const getBnetToken = async (): Promise<api.AccessToken> => {
   const credentials = await EnvironmentService.mapModelToConfig<bnet.Model>(
-    decrypt,
+    kms.createDecrypt(),
     process.env as EnvironmentService.Model,
     bnet.configuration,
   );
-  const { access_token } = await api.getToken(credentials);
-  const character = await Character.get(realm, partyId, {
-    region: api.DEFAULT_REGION,
-    access_token,
-  });
 
-  console.log(JSON.stringify(event, null, 2));
-  console.info('character', character);
-  return okResponse({ character });
+  return await api.getToken(credentials);
 };

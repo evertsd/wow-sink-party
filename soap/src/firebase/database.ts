@@ -10,7 +10,7 @@ https://opensource.org/licenses/MIT
 import firebase from 'firebase-admin';
 import { firebaseAdmin } from '~/credentials/schema';
 
-interface Connection {
+export interface Connection {
   db: firebase.firestore.Firestore;
   characters: firebase.firestore.CollectionReference;
   parties: firebase.firestore.CollectionReference;

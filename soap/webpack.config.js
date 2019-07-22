@@ -19,7 +19,7 @@ module.exports = {
     alias: {
       '~': path.resolve(__dirname, 'src/'),
     },
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js', '.json']
   },
   output: {
     path: path.resolve(__dirname, 'lambdas/bundles'),
