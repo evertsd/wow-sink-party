@@ -40,7 +40,7 @@ export const mapModelToConfig = async <T extends Config>(
   const { key, secrets } = configuration;
   const credentialKeys = Object.keys(environment)
     .filter(k => k.indexOf(`${key.toUpperCase()}_`) === 0);
-
+  console.info('mapModelToConfig, credentialKeys', credentialKeys);
   const publicTuples = credentialKeys
     .filter(k => isPublicKey(configuration)(k.slice(key.length + 1) as keyof T))
     .map(k => [k, environment[k]]);

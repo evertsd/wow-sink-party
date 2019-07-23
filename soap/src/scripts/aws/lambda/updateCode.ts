@@ -17,7 +17,7 @@ if (!lambda) {
 }
 
 const getLambdaBundlePath = (): string =>
-  path.resolve(`./lambdas/zip/${lambdaKey}.zip`);
+  path.resolve(`./lambdas/${lambdaKey}.zip`);
 
 const getUpdateCodeCommand = () => `lambda update-function-code \
 --profile ${profile} \

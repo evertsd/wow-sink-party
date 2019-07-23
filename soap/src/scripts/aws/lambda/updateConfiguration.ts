@@ -26,6 +26,7 @@ const getUpdateConfigurationCommand = (environment: string) => `lambda update-fu
 --profile ${profile} \
 --function-name ${lambdaKey} \
 --environment '${environment}' \
+--handler ${lambdaKey}/index.handler
 `;
 
 const updateConfiguration = async () => {

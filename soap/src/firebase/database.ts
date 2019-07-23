@@ -7,11 +7,11 @@ received a copy of the MIT license with this file, it can also be found here:
 https://opensource.org/licenses/MIT
 */
 
-import firebase from 'firebase-admin';
+import * as firebase from 'firebase-admin';
 import { firebaseAdmin } from '~/credentials/schema';
 
 export interface Connection {
-  db: firebase.firestore.Firestore;
+  ref: firebase.firestore.Firestore;
   characters: firebase.firestore.CollectionReference;
   parties: firebase.firestore.CollectionReference;
   users: firebase.firestore.CollectionReference;
@@ -19,7 +19,7 @@ export interface Connection {
 }
 
 export const Database: Connection = {
-  db: {} as firebase.firestore.Firestore,
+  ref: {} as firebase.firestore.Firestore,
   characters: {} as firebase.firestore.CollectionReference,
   parties: {} as firebase.firestore.CollectionReference,
   users: {} as firebase.firestore.CollectionReference,
@@ -29,7 +29,7 @@ export const Database: Connection = {
 export const initialize = (credentials: firebaseAdmin.Model): Connection =>
   Database.isInitialized ? Database : Object.assign(Database, createDatabase(credentials));
 
-const createDatabase = (credentials: firebaseAdmin.Model) => {
+const createDatabase = (credentials: firebaseAdmin.Model): Connection => {
   const account: firebase.ServiceAccount = {
     projectId: credentials.ID,
     privateKey: credentials.PRIVATE_KEY,

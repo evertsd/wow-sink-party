@@ -10,7 +10,7 @@ initializeSDK(credentials.aws);
 const testLambda = async () => {
   Object.assign(process.env, environment);
 
-  await getParty.handler({
+  return await getParty.handler({
     pathParameters: { id: '71961c28-ceaa-4b0f-bb13-aa4249cc7006' },
   });
 };

@@ -1,56 +1,38 @@
-import { kms } from '~/aws/sdk';
 // import { api, Character } from '~/battle-net';
-import { firebaseAdmin } from '~/credentials/schema';
 // import { bnet, firebaseAdmin } from '~/credentials/schema';
-import { Firebase, Party } from '~/firebase';
-import { EnvironmentService } from '~/services';
+import { Party } from '~/firebase';
 // import { CharacterService, EnvironmentService } from '~/services';
+import { intializeFirebase } from './credentials';
 
 const okResponse = (obj: object) => ({
   statusCode: 200,
   body: JSON.stringify(obj),
 });
 
+const updateParty = async (id: string) => {
+  await intializeFirebase();
+
+  const party = await Party.get(id);
+
+  return { party };
+};
+
 export const handler = async (event: any) => {
   const partyId = event.pathParameters.id;
-  console.info('partyId', partyId);
-  await intializeFirebase();
-  console.log('firebase initialized');
-  console.info('Firebase.Database.isInitialized', Firebase.Database.isInitialized);
-  console.info(
-    'Object.keys(Firebase.Database.parties)',
-    Object.keys(Firebase.Database.parties),
-  );
-  const party = await Party.get(partyId);
 
-  console.log(JSON.stringify(event, null, 2));
+  try {
+    const response = await updateParty(partyId);
 
-  return okResponse({ party });
+    return okResponse(response);
+  } catch (e) {
+    return { statusCode: 500, body: JSON.stringify({ message: e.message }) };
+  }
 };
 
-const intializeFirebase = async (): Promise<Firebase.Connection> => {
-  const credentials = await EnvironmentService.mapModelToConfig<firebaseAdmin.Model>(
-    kms.createDecrypt(),
-    process.env as EnvironmentService.Model,
-    firebaseAdmin.configuration,
-  );
-
-  return Firebase.initialize(credentials);
-};
 /*
 export const getCharacter = async (id: string, { access_token }: api.AccessToken) => {
   const { name, realm, region } = CharacterService.getId(id);
 
   return await Character.get(realm, name, { region, access_token });
-};
-
-export const getBnetToken = async (): Promise<api.AccessToken> => {
-  const credentials = await EnvironmentService.mapModelToConfig<bnet.Model>(
-    kms.createDecrypt(),
-    process.env as EnvironmentService.Model,
-    bnet.configuration,
-  );
-
-  return await api.getToken(credentials);
 };
 */
