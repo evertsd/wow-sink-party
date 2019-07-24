@@ -16,7 +16,7 @@ To get started, you'll need firebase and battlenet credentials so the app can pu
 ### Lambdas
 #### Deploy updated lambda
 ```
-npm run build
-npm run aws-build-lambdas
-npm run aws-zip-lambdas
-npm run aws-update-lambdas [lambdaName]
+yarn build
+yarn aws-build-lambdas
+yarn aws-zip-lambdas
+yarn aws-update-lambdas [lambdaName]
