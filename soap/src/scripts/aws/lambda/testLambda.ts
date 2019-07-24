@@ -11,7 +11,7 @@ const testLambda = async () => {
   Object.assign(process.env, environment);
 
   return await getParty.handler({
-    pathParameters: { id: '71961c28-ceaa-4b0f-bb13-aa4249cc7006' },
+    pathParameters: { id: '61472496-4028-4fe3-ad91-4307ca1e0bbe' },
   });
 };
 

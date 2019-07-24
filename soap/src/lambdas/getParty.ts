@@ -1,38 +1,24 @@
-// import { api, Character } from '~/battle-net';
-// import { bnet, firebaseAdmin } from '~/credentials/schema';
-import { Party } from '~/firebase';
-// import { CharacterService, EnvironmentService } from '~/services';
-import { intializeFirebase } from './credentials';
+import * as firebase from '~/firebase';
+import { SyncPartyService } from '~/services/party';
+import { getBnetToken, intializeFirebase } from './credentials';
+import * as Response from './response';
 
-const okResponse = (obj: object) => ({
-  statusCode: 200,
-  body: JSON.stringify(obj),
-});
-
-const updateParty = async (id: string) => {
+export const thandler = async (_: any) => {
   await intializeFirebase();
 
-  const party = await Party.get(id);
-
-  return { party };
+  console.info('firebase.Connection.now()', firebase.Connection.now());
 };
 
 export const handler = async (event: any) => {
   const partyId = event.pathParameters.id;
+  await intializeFirebase();
+  const token = await getBnetToken();
 
   try {
-    const response = await updateParty(partyId);
+    const response = await SyncPartyService.perform(partyId, token);
 
-    return okResponse(response);
+    return Response.ok(response);
   } catch (e) {
-    return { statusCode: 500, body: JSON.stringify({ message: e.message }) };
+    return Response.unexpectedError(e);
   }
 };
-
-/*
-export const getCharacter = async (id: string, { access_token }: api.AccessToken) => {
-  const { name, realm, region } = CharacterService.getId(id);
-
-  return await Character.get(realm, name, { region, access_token });
-};
-*/

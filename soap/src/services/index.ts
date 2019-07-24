@@ -1,5 +1,5 @@
-import * as CharacterService from './character';
 import * as EnvironmentService from './environment';
 import * as FilterService from './filter';
+import * as SyncPartyService from './party/sync';
 
-export { CharacterService, EnvironmentService, FilterService };
+export { EnvironmentService, FilterService, SyncPartyService };

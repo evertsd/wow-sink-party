@@ -1,5 +1,5 @@
 import firebase from 'firebase-admin';
-import { Database, now } from './database';
+import { Database, now } from './connection';
 
 export type GUID = string;
 

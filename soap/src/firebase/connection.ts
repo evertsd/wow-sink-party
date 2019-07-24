@@ -10,7 +10,7 @@ https://opensource.org/licenses/MIT
 import * as firebase from 'firebase-admin';
 import { firebaseAdmin } from '~/credentials/schema';
 
-export interface Connection {
+export interface Model {
   ref: firebase.firestore.Firestore;
   characters: firebase.firestore.CollectionReference;
   parties: firebase.firestore.CollectionReference;
@@ -18,7 +18,7 @@ export interface Connection {
   isInitialized?: boolean;
 }
 
-export const Database: Connection = {
+export const Database: Model = {
   ref: {} as firebase.firestore.Firestore,
   characters: {} as firebase.firestore.CollectionReference,
   parties: {} as firebase.firestore.CollectionReference,
@@ -26,10 +26,10 @@ export const Database: Connection = {
   isInitialized: false,
 };
 
-export const initialize = (credentials: firebaseAdmin.Model): Connection =>
+export const initialize = (credentials: firebaseAdmin.Model): Model =>
   Database.isInitialized ? Database : Object.assign(Database, createDatabase(credentials));
 
-const createDatabase = (credentials: firebaseAdmin.Model): Connection => {
+const createDatabase = (credentials: firebaseAdmin.Model): Model => {
   const account: firebase.ServiceAccount = {
     projectId: credentials.ID,
     privateKey: credentials.PRIVATE_KEY,
@@ -42,7 +42,7 @@ const createDatabase = (credentials: firebaseAdmin.Model): Connection => {
   });
 
   const ref = firebase.firestore();
-  console.info('createDatabase', credentials.ID, credentials.CLIENT_EMAIL);
+
   return {
     ref,
     characters: ref.collection('characters'),
@@ -52,4 +52,5 @@ const createDatabase = (credentials: firebaseAdmin.Model): Connection => {
   };
 };
 
-export const now = () => firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp;
+export const now = () =>
+  firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp;

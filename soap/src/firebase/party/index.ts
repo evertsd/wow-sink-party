@@ -1,5 +1,5 @@
-import { Model, load, save } from './schema';
-import { Database } from '../database';
+import { Attributes, Model, Refs, load, save } from './schema';
+import { Database } from '../connection';
 
 export * from './schema';
 
@@ -14,3 +14,6 @@ export const set = (id: string, party: Model) => {
 
   return Database.parties.doc(id).set(payload);
 };
+
+export const update = async (id: string, party: Partial<Attributes | Refs>) =>
+  Database.parties.doc(id).update(party);

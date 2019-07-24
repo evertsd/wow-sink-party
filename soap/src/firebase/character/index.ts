@@ -1,9 +1,21 @@
-import { Attributes, save } from './schema';
-import { Database } from '../database';
+import { Model, load, save } from './schema';
+import { Database } from '../connection';
 
 export * from './schema';
 
-export const set = async (id: string, character: Attributes) => {
+export const get = async (id: string): Promise<Model> => {
+  const doc = await Database.characters.doc(id).get();
+
+  return load(doc);
+};
+
+export const getOrDefault = async <K = undefined>(id: string, value: K): Promise<Model | K> => {
+  const doc = await Database.characters.doc(id).get();
+
+  return doc.exists ? load(doc) : value;
+};
+
+export const set = async (id: string, character: Model) => {
   const payload = save(character);
 
   try {

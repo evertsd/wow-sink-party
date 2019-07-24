@@ -1,6 +1,5 @@
 const path = require('path');
 const slsw = require('serverless-webpack');
-const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: 'production',
@@ -9,7 +8,9 @@ module.exports = {
   entry: {
     getParty: './src/lambdas/getParty.ts'
   },
-  externals: [nodeExternals()],
+  externals: {
+    'firebase-admin': 'commonjs firebase-admin'
+  },
   module: {
     rules: [
       {
