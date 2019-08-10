@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FilterService, PartyService } from '~/services';
 import * as Party from './Party';
+import * as ColorTest from './Test';
 import './styles.css';
 
 const defaultParties = [
@@ -14,7 +15,7 @@ const getParties = async (ids: string[]) => {
   return parties.filter(FilterService.notUndefined);
 };
 
-const useDefaultParty = () => {
+export const useDefaultParty = () => {
   const [state, setState] = React.useState<PartyService.PartyNormalized[]>([]);
 
   React.useEffect(() => {
@@ -24,7 +25,7 @@ const useDefaultParty = () => {
   return state;
 };
 
-export const PartiesList = () => {
+export const PartiesListReal = () => {
   const parties = useDefaultParty();
 
   if (!parties) {
@@ -37,3 +38,9 @@ export const PartiesList = () => {
     </div>
   );
 };
+
+export const PartiesList = () => (
+  <div className="parties-list">
+    <ColorTest.Component />
+  </div>
+);
