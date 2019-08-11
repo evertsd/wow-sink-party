@@ -3,14 +3,15 @@ import moment from 'moment';
 import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { DownArrow, UpArrow } from '~/assets/icons';
-import { mapTimestampToDate, Character, Party } from '~/firebase';
+import { mapTimestampToDate } from '~/firebase';
+import { CharacterRow } from './Character';
 import { connectParty, useParty, PartyProps } from './connectParty'
 
 interface Props extends PartyProps {
   isOpenByDefault?: boolean;
 }
 
-const DATE_FORMAT = 'MMMM Do YYYY, HH:mm';
+const DATE_FORMAT = 'MMMM Do, HH:mm';
 
 const Base: React.FC<Props> = (props) => {
   const { isOpenByDefault, party } = props;
@@ -33,9 +34,7 @@ const Base: React.FC<Props> = (props) => {
       <CSSTransition in={isOpen} timeout={360} classNames="collapsible">
         <ul>
           {party.members.map((character: string, i) => (
-            <li key={i} className="party-member">
-              {character}
-            </li>
+            <CharacterRow key={i} id={character} />
           ))}
         </ul>
       </CSSTransition>
@@ -44,14 +43,3 @@ const Base: React.FC<Props> = (props) => {
 };
 
 export const Component = connectParty(Base);
-
-export const CharacterComponent: React.FC<{ character: Character.Attributes }> = ({ character }) => (
-  <li className="party-member" style={{ color: Character.getClassColor(character) }}>
-    <div className="party-member-name">
-      {character.name}
-    </div>
-    <div className="party-member-level">
-      {character.level}
-    </div>
-  </li>
-);
