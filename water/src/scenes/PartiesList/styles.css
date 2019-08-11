@@ -24,14 +24,17 @@
   transition: border-bottom-width 180ms ease-in-out;
 }
 
-.party-header .party-header-content {
+.party-header .party-header-content,
+.party-member .party-member-name {
   padding: 0.5rem 1rem 1.5rem;
   position: relative;
   width: 100%;
 }
 
-.party-header-content .party-header-subtext {
+.party-header-content .party-header-subtext,
+.party-member .party-member-subtext {
   bottom: 0.25rem;
+  color: #ABABAB;
   font-size: 0.75rem;
   left: 1rem;
   position: absolute;

@@ -3,45 +3,43 @@ import moment from 'moment';
 import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { DownArrow, UpArrow } from '~/assets/icons';
-import { Character, Party } from '~/firebase';
+import { mapTimestampToDate } from '~/firebase';
+import { CharacterRow } from './Character';
+import { connectParty, useParty, PartyProps } from './connectParty'
 
-interface Props {
-  party: Party.Model;
-  characters: Character.Attributes[];
+interface Props extends PartyProps {
   isOpenByDefault?: boolean;
 }
 
-const DATE_FORMAT = 'MMMM Do YYYY, HH:mm';
+const DATE_FORMAT = 'MMMM Do, HH:mm';
 
-export const Component: React.FC<Props> = ({ characters, isOpenByDefault, party }) => {
+const Base: React.FC<Props> = (props) => {
+  const { isOpenByDefault, party } = props;
   const [isOpen, setIsOpen] = React.useState(isOpenByDefault);
-  console.info('Party', party);
+  useParty(props);
 
-  return (
+  console.info('Party, party', party);
+
+  return !party ? null : (
     <div className={cx('parties-list-party', { "members-visible": isOpen })}>
       <h2 className="party-header" onClick={() => setIsOpen(!isOpen)}>
         <div className="party-header-content">
           {party.name}
           {party.modifiedAt && (
-            <span className="party-header-subtext">{`${moment(party.modifiedAt.toDate()).format(DATE_FORMAT)}`}</span>
+            <span className="party-header-subtext">{`${moment(mapTimestampToDate(party.modifiedAt)).format(DATE_FORMAT)}`}</span>
           )}
         </div>
         {isOpen ? <UpArrow /> : <DownArrow />}
       </h2>
       <CSSTransition in={isOpen} timeout={360} classNames="collapsible">
         <ul>
-          {characters.map((character: Character.Attributes, i) => (
-            <li key={i} className="party-member" style={{ color: Character.getClassColor(character) }}>
-              <div className="party-member-name">
-                {character.name}
-              </div>
-              <div className="party-member-level">
-                {character.level}
-              </div>
-            </li>
+          {party.members.map((character: string, i) => (
+            <CharacterRow key={i} id={character} />
           ))}
         </ul>
       </CSSTransition>
     </div>
   );
 };
+
+export const Component = connectParty(Base);
