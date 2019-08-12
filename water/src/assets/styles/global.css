@@ -1,3 +1,8 @@
+.layout {
+  background: #404040;
+  color: #ABABAB;
+  min-height: 100vh;
+}
 .collapsible-enter {
   max-height: 0;
   overflow: hidden;

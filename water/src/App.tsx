@@ -1,10 +1,13 @@
 import React from 'react';
-import { PartiesList } from './scenes/PartiesList';
+import { BrowserRouter } from 'react-router-dom';
+import { Layout } from './layout/Anon';
 import { connectStore } from './store/connect/Component';
 import './assets/styles/global.css';
 
 const App: React.FC = () => (
-  <PartiesList />
+  <BrowserRouter>
+    <Layout />
+  </BrowserRouter>
 );
 
 export default connectStore(App);
