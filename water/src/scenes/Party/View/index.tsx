@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ViewMembers } from './Members';
+import { PartyHeaderSort } from './Sort';
 import { connectParty, useParty, PartyProps } from '../components/connectParty'
 import './styles.css';
 
@@ -16,6 +17,7 @@ const Component: React.FC<PartyProps> = (props) => {
         <div className="party-header-content">
           {party.name}
         </div>
+        <PartyHeaderSort />
       </h2>
       <ViewMembers party={party} />
     </div>
