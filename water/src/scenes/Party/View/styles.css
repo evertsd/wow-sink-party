@@ -1,16 +1,8 @@
-.parties-list {
-  background: #404040;
-  min-height: 100vh;
-  padding: 0.5rem;
+.party-view {
+  border-bottom: 1px solid #ABABAB;
 }
 
-.parties-list-party {
-  border: 1px solid #ABABAB;
-  border-radius: 3px;
-  margin: 1rem 0.5rem;
-}
-
-.parties-list-party .party-header {
+.party-view .party-header {
   align-items: center;
   border-color: #ABABAB;
   border-style: solid;
@@ -24,11 +16,15 @@
   transition: border-bottom-width 180ms ease-in-out;
 }
 
-.party-header .party-header-content,
+.party-view .party-header .party-header-content,
 .party-member .party-member-name {
-  padding: 0.5rem 1rem 1.5rem;
+  padding: 1rem;
   position: relative;
   width: 100%;
+}
+
+.party-member .party-member-name {
+  padding: 0.5rem 1rem 1.5rem;
 }
 
 .party-header-content .party-header-subtext,
@@ -40,7 +36,7 @@
   position: absolute;
 }
 
-.parties-list-party.members-visible .party-header {
+.party-view .party-header {
   border-bottom-width: 1px;
 }
 
@@ -58,20 +54,20 @@
   fill: #ABABAB!important;
 }
 
-.parties-list-party ul {
+.party-view ul {
   list-style-type: none;
   margin: 0;
   padding-left: 0;
 }
 
-.parties-list-party .party-member {
+.party-view .party-member {
   align-items: center;
   border-bottom: 1px solid #A0A0A0;
   display: flex;
   padding: 0;
 }
 
-.parties-list-party .party-member:last-of-type {
+.party-view .party-member:last-of-type {
   border-bottom-width: 0;
 }
 
