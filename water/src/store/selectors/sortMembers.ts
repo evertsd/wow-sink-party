@@ -2,7 +2,7 @@ import * as Character from './character';
 import { Selector } from './util';
 
 type CharacterSort = (a: Character.Attributes, b: Character.Attributes) => number;
-type IdSort = (a: string, b: string) => number;
+export type IdSort = (a: string, b: string) => number;
 type SortWrapper = Selector<IdSort>;
 
 enum Type {

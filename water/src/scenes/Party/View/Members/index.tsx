@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { CharacterRow } from './Character';
-import { connectMembers, MemberProps } from './connect'
+import { connectSorter, MemberProps } from './connectSorter'
 import './styles.css';
 
-const Component: React.FC<MemberProps> = ({ members }) => (
+const Component: React.FC<MemberProps> = ({ party, sortMembers }) => (
   <ul>
-    {members.map((character: string, i) => (
-      <CharacterRow key={i} id={character} />
-    ))}
+    {(party.members || [])
+      .sort(sortMembers)
+      .map((character: string, i) => (
+        <CharacterRow key={i} id={character} />
+      ))}
   </ul>
 );
 
 
-export const ViewMembers = connectMembers(Component);
+export const ViewMembers = connectSorter(Component);

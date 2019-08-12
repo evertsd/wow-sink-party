@@ -121,3 +121,7 @@
   position: relative;
   top: -0.175rem;
 }
+
+.party-sort-direction .arrow-descending {
+  transform: rotate(180deg);
+}

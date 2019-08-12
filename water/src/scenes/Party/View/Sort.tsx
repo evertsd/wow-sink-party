@@ -7,7 +7,7 @@ export const PartyHeaderSort = () => (
       <BodyBuilding />
     </div>
     <div className="party-sort-direction">
-      <Upload />
+      <Upload className="arrow-descending" />
     </div>
   </div>
 );
