@@ -1,5 +1,6 @@
 .navbar {
   align-items: center;
+  background: #404040;
   border-bottom: 1px solid #ABABAB;
   display: flex;
   font-size: 1.5rem;
@@ -7,6 +8,7 @@
   padding: 0 1.25rem;
   position: fixed;
   width: calc(100% - 2.5rem);
+  z-index: 2;
 }
 
 .navbar-brand {

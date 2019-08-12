@@ -1,13 +1,7 @@
-.party-list {
-  background: #404040;
-  min-height: 100vh;
-  padding: 0 0.5rem;
-}
-
 .party-list-item {
   border: 1px solid #ABABAB;
   border-radius: 3px;
-  margin: 1rem 0.5rem;
+  margin: 1rem;
 }
 
 .party-list-item .party-header {
