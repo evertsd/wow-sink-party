@@ -3,12 +3,6 @@ import { SyncPartyService } from '~/services/party';
 import { getBnetToken, intializeFirebase } from './credentials';
 import * as Response from './response';
 
-export const thandler = async (_: any) => {
-  await intializeFirebase();
-
-  console.info('firebase.Connection.now()', firebase.Connection.now());
-};
-
 export const handler = async (event: any) => {
   const partyId = event.pathParameters.id;
   await intializeFirebase();

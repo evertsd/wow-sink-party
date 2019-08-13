@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ViewMembers } from './Members';
-import { connectParty, useParty, PartyProps } from '../components/connectParty'
+import { connectParty, useParty, PartyProps } from './connectParty'
 import './styles.css';
 
 export { ClosePartyView } from './Close';

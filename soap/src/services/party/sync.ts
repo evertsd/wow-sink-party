@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as dayjs from 'dayjs';
 import * as bnet from '~/battle-net';
 import * as firebase from '~/firebase';
 import { notUndefined } from '../filter';
@@ -56,9 +56,10 @@ export const getCharacter = async (
 
 const shouldUpdateCharacter = (character: firebase.Character.Model) => {
   if (!(character.modifiedAt)) { return true; }
-  const msSinceUpdate = moment().diff(firebase.mapTimestampToDate(character.modifiedAt));
+  const modifiedAt = firebase.mapTimestampToDate(character.modifiedAt);
+  const hoursSinceUpdate = dayjs().diff(modifiedAt, 'h', true);
 
-  return moment.duration(msSinceUpdate).asHours() > 1;
+  return hoursSinceUpdate > 1;
 };
 
 export const mapToFirebaseModel = (character: bnet.Character.Model): firebase.Character.Model => ({

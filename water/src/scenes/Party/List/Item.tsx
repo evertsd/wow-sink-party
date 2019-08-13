@@ -1,8 +1,8 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { mapTimestampToDate } from '~/firebase';
-import { connectParty, useParty, PartyProps } from '../components/connectParty'
+import { connectParty, useParty, PartyProps } from './connectParty'
 
 const DATE_FORMAT = 'MMMM Do, HH:mm';
 
@@ -17,7 +17,7 @@ const Component: React.FC<PartyProps> = (props) => {
         <div className="party-header-content">
           {party.name}
           {party.modifiedAt && (
-            <span className="party-header-subtext">{`${moment(mapTimestampToDate(party.modifiedAt)).format(DATE_FORMAT)}`}</span>
+            <span className="party-header-subtext">{`${dayjs(mapTimestampToDate(party.modifiedAt)).format(DATE_FORMAT)}`}</span>
           )}
         </div>
       </Link>
