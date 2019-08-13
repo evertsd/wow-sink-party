@@ -24,9 +24,9 @@ export const useParty = (props: PartyProps) =>
 const shouldGetParty = ({ id, party }: PartyProps) => {
   if (!(id && party && party.id === id)) { return true; }
 
-  const msSinceUpdate = dayjs().diff(party.setAt, 'h', true);
+  const hoursSinceUpdate = dayjs().diff(party.setAt, 'h', true);
 
-  return msSinceUpdate > 1;
+  return hoursSinceUpdate > 1;
 };
 
 const getParty = async ({ id, setCharacter, setParty }: PartyProps) => {
