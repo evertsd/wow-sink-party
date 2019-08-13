@@ -3,6 +3,7 @@ export enum KEY {
   BATTLENET = 'battlenet',
   FIREBASE = 'firebase',
   FIREBASE_ADMIN = 'firebaseAdmin',
+  LAMBDA = 'lambda',
 }
 
 export interface Configuration<K> {

@@ -1,4 +1,3 @@
-import * as firebase from '~/firebase';
 import { SyncPartyService } from '~/services/party';
 import { getBnetToken, intializeFirebase } from './credentials';
 import * as Response from './response';
