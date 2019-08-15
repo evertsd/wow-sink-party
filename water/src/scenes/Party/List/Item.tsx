@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 import { mapTimestampToDate } from '~/firebase';
 import { connectParty, useParty, PartyProps } from './connectParty'
 
-const DATE_FORMAT = 'MMMM Do, HH:mm';
+const DATE_FORMAT = 'MMMM DD, HH:mm';
 
 const Component: React.FC<PartyProps> = (props) => {
   const { party } = props;
   useParty(props);
-
 
   return !party ? null : (
     <div className="party-list-item">

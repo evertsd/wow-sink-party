@@ -1,0 +1,30 @@
+.loading-bar {
+  background: #ABABAB;
+  top: 0;
+  cursor: pointer;
+  height: 0.5rem;
+  position: absolute;
+  z-index: 5;
+}
+.loading-bar-transition-enter {
+  left: 0;
+  width: 10%;
+}
+.loading-bar-transition-enter-active {
+  left: 30%;
+  transition: all 700ms;
+  width: 40%;
+}
+.loading-bar-transition-exit {
+  left: 30%;
+  width: 40%;
+}
+.loading-bar-transition-exit-active {
+  left: 100%;
+  transition: all 1000ms;
+  width: 10%;
+}
+.loading-bar-transition-exit-done {
+  left: 100%;
+  width: 10%;
+}

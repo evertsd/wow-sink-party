@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { lambda } from '~/backend';
 import { Party } from '~/firebase';
@@ -18,8 +18,19 @@ export const connectParty = connect<StateProps, DispatchProps, RequiredProps, St
   { setParty: Action.Party.set, setCharacter: Action.Party.setCharacter },
 );
 
-export const useParty = (props: PartyProps) =>
-  useEffect(() => { shouldGetParty(props) && getParty(props) }, [props.id]);
+export const useParty = (props: PartyProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (shouldGetParty(props)) {
+      setIsLoading(true);
+
+      getParty(props).finally(() => setIsLoading(false));
+    }
+  }, [props.id]);
+
+  return isLoading;
+};
 
 const shouldGetParty = ({ id, party }: PartyProps) => {
   if (!(id && party && party.id === id)) { return true; }
