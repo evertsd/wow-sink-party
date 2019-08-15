@@ -18,8 +18,8 @@ const getCredentialEnvs = (credentials: any, parent: string): string[] =>
     .map(key => `${toKey(parent, key)}=${credentials[key]}`);
 
 const env: string[] = ([] as string[])
-  .concat(getCredentialEnvs(secrets.firebase, Credentials.KEY.FIREBASE))
-  .concat(getCredentialEnvs(secrets.lambda, Credentials.KEY.LAMBDA));
+  .concat(getCredentialEnvs(secrets.apiGateway, Credentials.KEY.API_GATEWAY))
+  .concat(getCredentialEnvs(secrets.firebase, Credentials.KEY.FIREBASE));
 
 fs.writeFile(PATH_TO_ENV, env.join('\n'), err => {
   if (err) { throw err; }

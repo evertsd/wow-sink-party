@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { lambda } from '~/backend';
 import { Party } from '~/firebase';
 import { Action, State } from '~/store/connect';
+import * as tome from '~/tome';
 
 interface RequiredProps { id: string; }
 interface StateProps { party?: Timestamped<Party.Model>; }
@@ -42,7 +42,7 @@ const shouldGetParty = ({ id, party }: PartyProps) => {
 
 const getParty = async ({ id, setCharacter, setParty }: PartyProps) => {
   try {
-    const response = await lambda.getParty(id);
+    const response = await tome.getParty(id);
 
     setParty(response.party);
     response.characters.forEach(character => setCharacter(character));

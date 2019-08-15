@@ -10,16 +10,16 @@ export const perform = async (id: string, token: bnet.api.AccessToken) => {
     party.members.map(member => getCharacter(member, token)),
   )).filter(notUndefined);
 
-  const didUpdate = Boolean(characterUpdates.find(([_, du]) => du));
+  const didUpdateCharacter = Boolean(characterUpdates.find(([_, du]) => du));
   const characters = characterUpdates.map(([character]) => character);
 
-  if (didUpdate) {
-    firebase.Party.update(id, { modifiedAt: firebase.Connection.now() });
-
+  if (didUpdateCharacter) {
     party.modifiedAt = firebase.Connection.now();
+
+    firebase.Party.update(id, { modifiedAt: party.modifiedAt });
   }
 
-  return { party, characters, didUpdate };
+  return { party, characters, didUpdate: didUpdateCharacter };
 };
 
 type CharacterUpdate = [firebase.Character.Model, boolean];

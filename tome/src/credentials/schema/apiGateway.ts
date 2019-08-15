@@ -1,12 +1,11 @@
 import { Configuration, KEY } from './base';
 
 export interface Model {
-  API_PATH: string;
-  API_ENV: string;
-  API_KEY: string;
+  PATH: string;
+  KEY: string;
 }
 
 export const configuration: Configuration<Model> = {
-  key: KEY.LAMBDA,
+  key: KEY.API_GATEWAY,
   secrets: [],
 };
