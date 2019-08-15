@@ -1,5 +1,16 @@
-### Soap - The party-sync's solution for grime
-This directory houses scripts that help us get the data we need from battle.net
+## Epitome
+### What is it?
+A tool to help WoW players monitor the leveling progress of their peers from their mobile devices. ([PWA](https://en.wikipedia.org/wiki/Progressive_web_applications))
 
-### Water - What we see when we look at the party-sync
-This directory houses the code for the user interface.
+### Dependencies
+- [yarn](https://yarnpkg.com/en/docs/install)
+- [serverless](https://serverless.com/framework/)
+- [aws-cli](https://aws.amazon.com/cli/)
+- [firebase firestore](https://console.firebase.google.com)
+- [bnet developer client](https://develop.battle.net)
+
+### Core technology
+- [react](https://reactjs.org/) front end
+- [aws.lambda](https://aws.amazon.com/lambda/)
+- [firebase firestore](https://console.firebase.google.com)
+- [typescript](https://www.typescriptlang.org/)

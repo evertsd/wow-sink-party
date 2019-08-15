@@ -1,13 +1,13 @@
 {
-  "name": "sink-party-soap",
+  "name": "epitome-tome",
   "version": "0.0.1",
-  "description": "Soap helps the water clean our utensils for the next use",
+  "description": "Tome is the vessel for information that we want to illuminate",
   "main": "src/index.js",
   "scripts": {
     "build": "tsc",
     "test": "NODE_ENV=test jest --config=\"jest.config.json\"",
     "party-sync": "node dist/scripts/getPartyMemberDetails.js",
-    "create-env": "node dist/scripts/createCredentialEnvVars.js ../water/.env",
+    "create-env": "node dist/scripts/createCredentialEnvVars.js ../illuminate/.env",
     "aws-write-iam": "node dist/scripts/aws/iam/write.js ~/.aws/credentials",
     "aws-build-lambdas": "serverless webpack",
     "aws-update-lambda": "node dist/scripts/aws/lambda/updateCode.js",

@@ -3,10 +3,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Getting started
 To get started, you'll need firebase credentials so the app can pull down party data.
-- Get a `credentials.json` and put in `soap/src/secrets`
-- Create a `.env` file with the credentials using a script in `soap`
+- Get a `credentials.json` and put in `tome/src/secrets`
+- Create a `.env` file with the credentials using a script in `tome`
 ```
-cd ../soap
+cd ../tome
 npm run build
 npm run create-env
 ```
