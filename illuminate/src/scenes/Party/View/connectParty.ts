@@ -33,9 +33,10 @@ export const useParty = (props: PartyProps) => {
 };
 
 const shouldGetParty = ({ id, party }: PartyProps) => {
-  if (!(id && party && party.id === id)) { return true; }
+  if (!(id && party && (party.id === id))) { return true; }
 
-  const hoursSinceUpdate = dayjs().diff(party.setAt, 'h', true);
+  const hoursSinceUpdate = party.setAt ?
+    dayjs().diff(party.setAt, 'h', true) : 2;
 
   return hoursSinceUpdate > 1;
 };

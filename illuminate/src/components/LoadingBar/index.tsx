@@ -18,7 +18,7 @@ export const LoadingBar: React.FC = () => {
       timeout={isIn ? 600 : 1100}
       onEntered={() => setIsIn(false)}
       onExited={() => setIsIn(true)}>
-      <div className="loading-bar" onClick={() => setIsIn(!isIn)}>&nbsp;</div>
+      <div className="loading-bar">&nbsp;</div>
     </CSSTransition>
   );
 }
