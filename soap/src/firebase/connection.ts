@@ -53,4 +53,4 @@ const createDatabase = (credentials: firebaseAdmin.Model): Model => {
 };
 
 export const now = () =>
-  firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp;
+  firebase.firestore.Timestamp.fromDate(new Date());

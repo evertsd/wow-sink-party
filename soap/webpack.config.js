@@ -9,7 +9,8 @@ module.exports = {
     getParty: './src/lambdas/getParty.ts'
   },
   externals: {
-    'firebase-admin': 'commonjs firebase-admin'
+    'firebase-admin': 'commonjs firebase-admin',
+    'dayjs': 'dayjs',
   },
   module: {
     rules: [

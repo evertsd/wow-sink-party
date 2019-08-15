@@ -1,9 +1,9 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import * as React from 'react';
 import { Character } from '~/firebase';
 import { connectCharacter, useCharacter, CharacterProps } from './connectCharacter';
 
-const DATE_FORMAT = 'MMMM Do, HH:mm';
+const DATE_FORMAT = 'MMMM DD, HH:mm';
 
 export const Component: React.FC<CharacterProps> = (props) => {
   const { character } = props;
@@ -15,7 +15,7 @@ export const Component: React.FC<CharacterProps> = (props) => {
         {character.name}
         {character.lastLoginTimestamp && (
           <span className="party-member-subtext">
-            Last log in: {`${moment(character.lastLoginTimestamp).format(DATE_FORMAT)}`}
+            Last log in: {`${dayjs(character.lastLoginTimestamp).format(DATE_FORMAT)}`}
           </span>
         )}
       </div>
