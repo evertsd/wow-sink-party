@@ -1,13 +1,15 @@
 import 'module-alias/register';
 import * as Credentials from '~/credentials/secrets';
 import * as getParty from '~/lambdas/getParty';
-import { environment } from '~/secrets/environment';
+import * as Configuration from './configuration';
 import { initializeSDK } from '../connection';
 
 const credentials = Credentials.get();
+const lambdaKey = Configuration.Lambda.getParty; // process.argv[2] as Configuration.Lambda
 initializeSDK(credentials.aws);
 
 const testLambda = async () => {
+  const environment = await Configuration.getEnvironment(lambdaKey);
   Object.assign(process.env, environment);
 
   return await getParty.handler({

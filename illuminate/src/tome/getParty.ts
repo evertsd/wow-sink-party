@@ -17,7 +17,7 @@ export const getParty = async (id: string): Promise<GetPartyResponse>  => {
   });
 
   const body = await response.json();
-  console.info('getParty', body);
+
   if (!response.ok) {
     throw Error(body.message);
   }

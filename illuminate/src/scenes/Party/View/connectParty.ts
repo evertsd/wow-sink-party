@@ -36,7 +36,8 @@ const shouldGetParty = ({ id, party }: PartyProps) => {
   if (!(id && party && (party.id === id))) { return true; }
 
   const hoursSinceUpdate = party.setAt ?
-    dayjs().diff(party.setAt, 'h', true) : 2;
+    dayjs().diff(party.setAt, 'h', true) :
+    Number.MAX_SAFE_INTEGER;
 
   return hoursSinceUpdate > 1;
 };

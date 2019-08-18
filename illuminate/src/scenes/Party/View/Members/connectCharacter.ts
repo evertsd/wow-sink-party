@@ -16,6 +16,17 @@ export const connectCharacter = connect<StateProps, DispatchProps, RequiredProps
 export const useCharacter = ({ id, character, setCharacter }: CharacterProps) =>
   useEffect(() => {
     if (!(id && character && character.id === id)) {
-      Character.get(id).then(setCharacter);
+      getCharacter(id).then(character => {
+        if (character) { setCharacter(character); }
+      })
     }
   }, [id]);
+
+const getCharacter = async (id: string) => {
+  try {
+    return await Character.get(id);
+  }
+  catch (e) {
+    console.error(e);
+  }
+};

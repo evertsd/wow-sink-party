@@ -41,13 +41,9 @@ export const getCharacter = async (
       modifiedAt: firebase.Connection.now(),
     };
 
-    const willUpdate = !character || updatedCharacter.lastLoginTimestamp !== character.lastLoginTimestamp || true;
+    await firebase.Character.set(id, updatedCharacter);
 
-    if (willUpdate) {
-      await firebase.Character.set(id, updatedCharacter);
-    }
-
-    return [updatedCharacter, willUpdate];
+    return [updatedCharacter, true];
   } catch (e) {
     console.error(e);
     return undefined;
@@ -55,7 +51,7 @@ export const getCharacter = async (
 };
 
 const shouldUpdateCharacter = (character: firebase.Character.Model) => {
-  if (!(character.modifiedAt)) { return true; }
+  if (!character.modifiedAt) { return true; }
   const modifiedAt = firebase.mapTimestampToDate(character.modifiedAt);
   const hoursSinceUpdate = dayjs().diff(modifiedAt, 'h', true);
 
