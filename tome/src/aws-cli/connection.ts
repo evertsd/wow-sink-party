@@ -1,4 +1,3 @@
-// tslint:disable:no-var-requires
 import { Aws } from 'aws-cli-js';
 import { aws } from '~/credentials/schema';
 

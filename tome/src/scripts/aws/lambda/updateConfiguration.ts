@@ -1,4 +1,3 @@
-// tslint:disable:no-var-requires
 import 'module-alias/register';
 import * as Credentials from '~/credentials/secrets';
 import * as Configuration from './configuration';

@@ -7,14 +7,16 @@
     "build": "tsc",
     "test": "NODE_ENV=test jest --config=\"jest.config.json\"",
     "party-sync": "node dist/scripts/getPartyMemberDetails.js",
-    "create-env": "npm run build && node dist/scripts/createCredentialEnvVars.js ../illuminate/.env",
     "aws-write-iam": "npm run build && node dist/scripts/aws/iam/write.js ~/.aws/credentials",
     "aws-build-lambdas": "serverless webpack",
     "aws-update-lambda": "npm run build && node dist/scripts/aws/lambda/updateCode.js",
     "aws-update-lambda-configuration": "npm run build && node dist/scripts/aws/lambda/updateConfiguration.js",
     "aws-zip-lambdas": "npm run build && node dist/scripts/aws/lambda/zip.js",
     "aws-prepare-lambdas": "npm run aws-build-lambdas && npm run aws-zip-lambdas",
-    "aws-test-lambda": "npm run build && node dist/scripts/aws/lambda/testLambda.js"
+    "aws-test-lambda": "npm run build && node dist/scripts/aws/lambda/testLambda.js",
+    "credentials-create-env": "npm run build && node dist/scripts/credentials/createEnv.js ../illuminate/.env",
+    "credentials-decrypt": "npm run build && node dist/scripts/credentials/decrypt.js",
+    "credentials-encrypt": "npm run build && node dist/scripts/credentials/encrypt.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +25,7 @@
     "@types/node": "^12.0.12",
     "@types/request-promise": "^4.1.44",
     "compression-webpack-plugin": "^3.0.0",
+    "crypto": "^1.0.1",
     "jest": "^24.8.0",
     "serverless-webpack": "^5.3.1",
     "ts-import-plugin": "^1.6.1",
@@ -36,6 +39,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@types/uuid": "^3.4.5",
     "aws-cli-js": "^2.0.5",
     "aws-sdk": "^2.495.0",
     "bestzip": "^2.1.4",
