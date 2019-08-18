@@ -6,5 +6,5 @@ export * from './schema';
 export const DEFAULT_ENV = 'dev';
 
 export const get = (key: string = DEFAULT_ENV): Model =>
-  (credentials as Map)[key] ||
+  (credentials as unknown as Map)[key] ||
   credentials[DEFAULT_ENV];

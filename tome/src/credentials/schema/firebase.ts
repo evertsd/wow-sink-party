@@ -2,7 +2,6 @@ import { Configuration, KEY } from './base';
 
 export interface Model {
   ID: string;
-  KEY_FILENAME: string;
   KEY: string;
   DOMAIN: string;
   URL: string;
