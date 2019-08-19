@@ -13,7 +13,7 @@ export const connectCharacter = connect<StateProps, DispatchProps, RequiredProps
   { setCharacter: Action.Party.setCharacter },
 );
 
-export const useCharacter = ({ id, character, setCharacter }: CharacterProps) =>
+export const useCharacter = ({ id, character, setCharacter }: CharacterProps) => {
   useEffect(() => {
     if (!(id && character && character.id === id)) {
       getCharacter(id).then(character => {
@@ -21,6 +21,7 @@ export const useCharacter = ({ id, character, setCharacter }: CharacterProps) =>
       })
     }
   }, [id, character, setCharacter]);
+};
 
 const getCharacter = async (id: string) => {
   try {

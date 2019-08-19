@@ -3,19 +3,15 @@ import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Party } from '~/firebase';
 import { Action, State } from '~/store/connect';
-import * as tome from '~/tome';
 
 interface RequiredProps { id: string; }
 interface StateProps { party?: Timestamped<Party.Model>; }
-interface DispatchProps {
-  setParty: typeof Action.Party.set;
-  setCharacter: typeof Action.Party.setCharacter;
-}
+interface DispatchProps { setParty: typeof Action.Party.set; }
 export interface PartyProps extends DispatchProps, RequiredProps, StateProps {}
 
 export const connectParty = connect<StateProps, DispatchProps, RequiredProps, State>(
   (state, { id }) => ({ party: state.party[id] }),
-  { setParty: Action.Party.set, setCharacter: Action.Party.setCharacter },
+  { setParty: Action.Party.set },
 );
 
 export const useParty = (props: PartyProps) => {
@@ -27,7 +23,7 @@ export const useParty = (props: PartyProps) => {
 
       getParty(props).finally(() => setIsLoading(false));
     }
-  }, [props.id, props.party]);
+  }, [props.id]);
 
   return isLoading;
 };
@@ -42,12 +38,11 @@ const shouldGetParty = ({ id, party }: PartyProps) => {
   return hoursSinceUpdate > 1;
 };
 
-const getParty = async ({ id, setCharacter, setParty }: PartyProps) => {
+const getParty = async ({ id, setParty }: PartyProps) => {
   try {
-    const response = await tome.getParty(id);
+    const response = await Party.get(id);
 
-    setParty(response.party);
-    response.characters.forEach(character => setCharacter(character));
+    setParty(response);
   } catch (e) {
     console.error(e);
   }

@@ -18,4 +18,4 @@ export const useParty = ({ id, party, setParty }: PartyProps) =>
     if (!(id && party && party.id === id)) {
       Party.get(id).then(setParty);
     }
-  }, [id]);
+  }, [id, party, setParty]);
