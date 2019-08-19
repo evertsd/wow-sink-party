@@ -11,5 +11,4 @@ const Component: React.FC<MemberProps> = ({ members }) => (
   </ul>
 );
 
-
 export const ViewMembers = connectMembers(Component);

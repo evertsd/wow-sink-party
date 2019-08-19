@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import * as React from 'react';
-import { Character } from '~/firebase';
+import { Character, mapTimestampToDate } from '~/firebase';
+import { capitalize } from '~/services/format';
 import { connectCharacter, useCharacter, CharacterProps } from './connectCharacter';
 
 const DATE_FORMAT = 'MMMM DD, HH:mm';
@@ -9,13 +10,16 @@ export const Component: React.FC<CharacterProps> = (props) => {
   const { character } = props;
   useCharacter(props);
 
-  return !character ? null : (
+  if (!character) { return null; }
+
+  return (
     <li className="party-member" style={{ color: Character.getClassColor(character) }}>
       <div className="party-member-name">
-        {character.name}
-        {character.lastLoginTimestamp && (
+        {capitalize(character.name)}
+        {character.modifiedAt && (
           <span className="party-member-subtext">
-            Last log in: {`${dayjs(character.lastLoginTimestamp).format(DATE_FORMAT)}`}
+            Last updated:
+            {`${dayjs(mapTimestampToDate(character.modifiedAt)).format(DATE_FORMAT)}`}
           </span>
         )}
       </div>
