@@ -1,4 +1,4 @@
-import { Model, load, save } from './schema';
+import { Attributes, Model, load, save } from './schema';
 import { Database } from '../connection';
 
 export * from './schema';
@@ -24,3 +24,6 @@ export const set = async (id: string, character: Model) => {
     console.log(`Character.set, error: ${e}`);
   }
 };
+
+export const update = async (id: string, party: Partial<Attributes>) =>
+  Database.characters.doc(id).update(party);

@@ -59,7 +59,7 @@ const shouldUpdateCharacter = (character: firebase.Character.Model) => {
 };
 
 export const mapToFirebaseModel = (character: bnet.Character.Model): firebase.Character.Model => ({
-  achievementPoints: character.achievement_points,
+  // achievementPoints: character.achievement_points,
   klass: character.character_class.name,
   experience: character.experience,
   lastLoginTimestamp: character.last_login_timestamp,

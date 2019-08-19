@@ -15,5 +15,5 @@ export const set = (id: string, party: Model) => {
   return Database.parties.doc(id).set(payload);
 };
 
-export const update = async (id: string, party: Partial<Attributes | Refs>) =>
+export const update = async (id: string, party: Partial<Attributes & Refs>) =>
   Database.parties.doc(id).update(party);

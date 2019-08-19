@@ -14,7 +14,7 @@ export const getId = (id: string): Id => {
 };
 
 export const mapToFirebaseModel = (character: BnetCharacter.Model): FirebaseCharacter.Attributes => ({
-  achievementPoints: character.achievement_points,
+  // achievementPoints: character.achievement_points,
   klass: character.character_class.name,
   experience: character.experience,
   lastLoginTimestamp: character.last_login_timestamp,

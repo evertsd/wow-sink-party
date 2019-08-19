@@ -4,7 +4,6 @@ import * as Base from '../base';
 export const ID_DELIMETER = ':';
 
 export interface Attributes extends Base.Attributes {
-  achievementPoints: number;
   klass: WoWClassType;
   experience: number;
   lastLoginTimestamp: number;

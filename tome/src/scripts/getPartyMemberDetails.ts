@@ -11,6 +11,7 @@ interface PartyJSON {
   name: string;
   members: string[];
   region: string;
+  realm: string;
 }
 
 interface PartiesJSON {
