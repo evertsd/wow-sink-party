@@ -18,8 +18,10 @@ export const Component: React.FC<CharacterProps> = (props) => {
         {capitalize(character.name)}
         {character.modifiedAt && (
           <span className="party-member-subtext">
-            Last updated:
-            {`${dayjs(mapTimestampToDate(character.modifiedAt)).format(DATE_FORMAT)}`}
+            Last updated: {`
+              ${dayjs(mapTimestampToDate(character.modifiedAt))
+                  .format(DATE_FORMAT)}
+            `}
           </span>
         )}
       </div>
