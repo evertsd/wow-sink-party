@@ -1,7 +1,7 @@
 import 'module-alias/register';
 import * as Credentials from '~/credentials/secrets';
 import { Character, Connection, Party } from '~/firebase';
-import * as secrets from './secrets';
+import * as secrets from '../secrets';
 
 Connection.initialize(Credentials.get().firebaseAdmin);
 

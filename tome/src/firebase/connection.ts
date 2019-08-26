@@ -13,6 +13,8 @@ import { firebaseAdmin } from '~/credentials/schema';
 export interface Model {
   ref: firebase.firestore.Firestore;
   characters: firebase.firestore.CollectionReference;
+  characterLevelHistory: firebase.firestore.CollectionReference;
+  levelUploadHistory: firebase.firestore.CollectionReference;
   parties: firebase.firestore.CollectionReference;
   users: firebase.firestore.CollectionReference;
   isInitialized?: boolean;
@@ -21,6 +23,8 @@ export interface Model {
 export const Database: Model = {
   ref: {} as firebase.firestore.Firestore,
   characters: {} as firebase.firestore.CollectionReference,
+  characterLevelHistory: {} as firebase.firestore.CollectionReference,
+  levelUploadHistory: {} as firebase.firestore.CollectionReference,
   parties: {} as firebase.firestore.CollectionReference,
   users: {} as firebase.firestore.CollectionReference,
   isInitialized: false,
@@ -46,6 +50,8 @@ const createDatabase = (credentials: firebaseAdmin.Model): Model => {
   return {
     ref,
     characters: ref.collection('characters'),
+    characterLevelHistory: ref.collection('characterLevelHistory'),
+    levelUploadHistory: ref.collection('levelUploadHistory'),
     parties: ref.collection('parties'),
     users: ref.collection('users'),
     isInitialized: true,

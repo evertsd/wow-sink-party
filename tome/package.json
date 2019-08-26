@@ -17,7 +17,8 @@
     "credentials-create-env": "npm run build && node dist/scripts/credentials/createEnv.js ../illuminate/.env",
     "credentials-decrypt": "npm run build && node dist/scripts/credentials/decrypt.js",
     "credentials-encrypt": "npm run build && node dist/scripts/credentials/encrypt.js",
-    "illuminate-create-party": "npm run build && node dist/scripts/illuminate/party/create.js"
+    "illuminate-create-party": "npm run build && node dist/scripts/illuminate/party/create.js",
+    "illuminate-character-levels": "npm run build && node dist/scripts/illuminate/party/updateCharacterLevels.js"
   },
   "author": "",
   "license": "ISC",
