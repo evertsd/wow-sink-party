@@ -17,14 +17,17 @@ const createUploadLevelHistory = async ({ characters }: secrets.CharacterLevelsJ
     updateCharacterLevel(id, characters[id]),
   );
 
-  const characterLevelHistory = (await Promise.all(promises)).filter(notUndefined);
+  const characterLevelHistory = (await Promise.all(promises))
+    .map(clh => clh ? clh.id : undefined)
+    .filter(notUndefined);
+
+  if (!characterLevelHistory.length) { return; }
+
   const levelUploadHistory = {
     id: uuid(),
+    characterLevelHistory,
     createdAt: Connection.now(),
     modifiedAt: Connection.now(),
-    characterLevelHistory: characterLevelHistory
-      .map(clh => clh.id)
-      .filter(notUndefined),
   };
 
   await LevelUploadHistory.set(levelUploadHistory.id, levelUploadHistory);
@@ -34,10 +37,13 @@ const updateCharacterLevel: TUpdateCharacterLevel = async (id, level) => {
   const doc = await Connection.Database.characters.doc(id).get();
   const character = doc.exists ? Character.load(doc) : undefined;
 
-  if (!character || character.level > level) { return; }
-
   try {
-    await Character.update(id, { level });
+    await Character.update(id, {
+      level,
+      modifiedAt: Connection.now(),
+    });
+
+    if (!character || character.level > level) { return; }
 
     const characterLevelHistory = {
       id: uuid(),
