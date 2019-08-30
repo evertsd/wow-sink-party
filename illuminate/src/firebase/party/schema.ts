@@ -4,6 +4,7 @@ import { Database } from '../database';
 
 export interface Attributes extends Base.Attributes {
   name: string;
+  realm: string;
   region: string;
 }
 

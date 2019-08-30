@@ -1,10 +1,7 @@
-import dayjs from 'dayjs';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { mapTimestampToDate } from '~/firebase';
+import { capitalize } from '~/services/format';
 import { connectParty, useParty, PartyProps } from './connectParty'
-
-const DATE_FORMAT = 'MMMM DD, HH:mm';
 
 const Component: React.FC<PartyProps> = (props) => {
   const { party } = props;
@@ -15,9 +12,7 @@ const Component: React.FC<PartyProps> = (props) => {
       <Link to={`/party/${props.id}`} className="party-header">
         <div className="party-header-content">
           {party.name}
-          {party.modifiedAt && (
-            <span className="party-header-subtext">{`${dayjs(mapTimestampToDate(party.modifiedAt)).format(DATE_FORMAT)}`}</span>
-          )}
+          <span className="party-header-subtext">{capitalize(party.realm)}</span>
         </div>
       </Link>
     </div>

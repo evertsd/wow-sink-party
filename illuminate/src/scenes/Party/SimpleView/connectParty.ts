@@ -35,7 +35,7 @@ const shouldGetParty = ({ id, party }: PartyProps) => {
     dayjs().diff(party.setAt, 'h', true) :
     Number.MAX_SAFE_INTEGER;
 
-  return hoursSinceUpdate > 0;
+  return hoursSinceUpdate > 0.25;
 };
 
 const getParty = async ({ id, setParty }: PartyProps) => {
